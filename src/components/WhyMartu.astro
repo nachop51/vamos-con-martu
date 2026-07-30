@@ -1,0 +1,183 @@
+---
+import { Image } from 'astro:assets';
+import Reveal from './Reveal.astro';
+import Icon from './Icon.astro';
+import castleFront from '../assets/magic-kingdom/castle-front.webp';
+import fireworks from '../assets/magic-kingdom/closing-fireworks-2.webp';
+import epcotDay from '../assets/epcot/epcot.webp';
+import epcotNight from '../assets/epcot/epcot-night.webp';
+import chineseTheatre from '../assets/hollywood-studios/hollywood-studios.webp';
+import hollywoodTower from '../assets/hollywood-studios/hollywood-tower.webp';
+import avatarTank from '../assets/animal-kingdom/avatar.webp';
+import treeOfLife from '../assets/animal-kingdom/animal-kingdom-tree.webp';
+
+const reasons = [
+	{ icon: 'people' as const, text: 'Grupos reducidos', color: 'text-magenta' },
+	{ icon: 'calendar' as const, text: 'Itinerarios pensados parque por parque', color: 'text-azul' },
+	{ icon: 'heart' as const, text: 'Viajo con el grupo', color: 'text-rosa' },
+	{ icon: 'plane' as const, text: 'Respaldo de Jetmar', color: 'text-crepusculo' },
+];
+
+// One stop per park along a dotted trail that zig-zags down the section:
+// each stop is a pair of tilted snapshots with the park's name, and a
+// squiggly dashed line connects each stop to the next.
+const parks = [
+	{
+		name: 'Magic Kingdom',
+		photos: [
+			{ src: castleFront, alt: 'Castillo de Cenicienta en Magic Kingdom' },
+			{ src: fireworks, alt: 'Fuegos artificiales de cierre sobre el castillo de Magic Kingdom' },
+		],
+	},
+	{
+		name: 'Epcot',
+		photos: [
+			{ src: epcotDay, alt: 'La esfera Spaceship Earth en Epcot' },
+			{ src: epcotNight, alt: 'Spaceship Earth iluminada de noche en Epcot' },
+		],
+	},
+	{
+		name: 'Hollywood Studios',
+		photos: [
+			{ src: chineseTheatre, alt: 'El Teatro Chino en Hollywood Studios' },
+			{ src: hollywoodTower, alt: 'La torre del Hollywood Tower Hotel en Hollywood Studios' },
+		],
+	},
+	{
+		name: 'Animal Kingdom',
+		photos: [
+			{ src: treeOfLife, alt: 'El Árbol de la Vida en Animal Kingdom' },
+			{ src: avatarTank, alt: 'El laboratorio de Avatar en Animal Kingdom' },
+		],
+	},
+];
+---
+
+<section id="por-que" class="sky-dia relative -mt-px scroll-mt-20 pt-16 pb-4 md:pt-20 md:pb-6">
+	<div class="mx-auto max-w-6xl px-5">
+		<Reveal>
+			<p class="font-display mb-3 text-sm tracking-[0.25em] text-magenta uppercase">Beneficios</p>
+			<h2 class="font-display max-w-2xl text-balance text-4xl font-semibold text-tinta md:text-5xl">
+				¿Por qué viajar con Martu?
+			</h2>
+		</Reveal>
+
+		<div class="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+			{
+				reasons.map((r, i) => (
+					<Reveal delay={i * 100}>
+						<div class="reason flex h-full flex-col items-center gap-4 rounded-3xl bg-white p-6 text-center md:p-7">
+							<span class={`icon-ring grid size-14 place-items-center rounded-full ${r.color}`}>
+								<Icon name={r.icon} size={28} />
+							</span>
+							<p class="font-semibold text-balance text-tinta">{r.text}</p>
+						</div>
+					</Reveal>
+				))
+			}
+		</div>
+
+		<div class="mx-auto mt-14 max-w-3xl md:mt-16">
+			{
+				parks.map((park, i) => (
+					<>
+						{i > 0 && (
+							<div class="-my-1 flex justify-center md:-my-2" aria-hidden="true">
+								<svg
+									viewBox="0 0 200 120"
+									preserveAspectRatio="none"
+									fill="none"
+									class={`h-20 w-44 text-magenta/45 md:h-28 md:w-60 ${i % 2 === 0 ? '-scale-x-100' : ''}`}
+								>
+									<path
+										d="M18 6C62 22 96 28 98 48C100 66 72 70 70 55C68 40 98 42 118 56C142 73 165 92 184 114"
+										stroke="currentColor"
+										stroke-width="2.5"
+										stroke-linecap="round"
+										stroke-dasharray="0.1 9"
+									/>
+								</svg>
+							</div>
+						)}
+						<Reveal class={`flex ${i % 2 === 1 ? 'justify-end md:pr-10' : 'justify-start md:pl-10'}`}>
+							<div class={`park-stop ${i % 2 === 1 ? 'rotate-[1.5deg]' : 'rotate-[-1.5deg]'}`}>
+								<div class="flex items-end">
+									<div class="trail-photo photo-a relative rounded-2xl bg-white p-1.5 md:p-2">
+										<Image
+											src={park.photos[0].src}
+											alt={park.photos[0].alt}
+											widths={[160, 320]}
+											sizes="(min-width: 768px) 160px, 112px"
+											class="aspect-[3/4] w-28 rounded-lg object-cover sm:w-32 md:w-40 md:rounded-xl"
+										/>
+									</div>
+									<div class="trail-photo photo-b relative -ml-5 rounded-2xl bg-white p-1.5 md:-ml-7 md:p-2">
+										<Image
+											src={park.photos[1].src}
+											alt={park.photos[1].alt}
+											widths={[160, 320]}
+											sizes="(min-width: 768px) 160px, 112px"
+											class="aspect-[3/4] w-28 rounded-lg object-cover sm:w-32 md:w-40 md:rounded-xl"
+										/>
+									</div>
+								</div>
+								<p class="font-display mt-3 text-center text-base font-semibold text-tinta md:text-lg">
+									{park.name}
+								</p>
+							</div>
+						</Reveal>
+					</>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.reason {
+		border: 1px solid rgb(255 32 153 / 0.15);
+		box-shadow: 0 4px 18px rgb(43 45 66 / 0.06);
+	}
+
+	/* soft halo in the icon's own color */
+	.icon-ring {
+		background: color-mix(in srgb, currentColor 10%, white);
+	}
+
+	/* ---------- Park trail ---------- */
+
+	.trail-photo {
+		border: 1px solid rgb(255 32 153 / 0.15);
+		box-shadow: 0 6px 22px rgb(43 45 66 / 0.1);
+		transition:
+			transform 0.25s ease,
+			box-shadow 0.25s ease;
+	}
+
+	/* the pair leans apart like snapshots dropped on a table */
+	.photo-a {
+		transform: rotate(-5deg);
+	}
+
+	.photo-b {
+		transform: rotate(4deg) translateY(8px);
+		z-index: 1;
+	}
+
+	@media (hover: hover) {
+		.trail-photo:hover {
+			transform: rotate(0deg) scale(1.05);
+			box-shadow: 0 14px 40px rgb(43 45 66 / 0.18);
+			z-index: 5;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.trail-photo {
+			transition: none;
+		}
+		.trail-photo:hover {
+			transform: rotate(0deg);
+		}
+	}
+</style>

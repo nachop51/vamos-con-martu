@@ -1,0 +1,114 @@
+---
+import Reveal from './Reveal.astro';
+import Icon from './Icon.astro';
+import { SITE } from '../config';
+import { instagramPosts } from '../data/instagram';
+---
+
+<section id="instagram" class="sky-dia relative -mt-px scroll-mt-20 pt-12 pb-16 md:pt-14 md:pb-20">
+	<div class="mx-auto max-w-6xl px-5">
+		<Reveal>
+			<p class="font-display mb-3 text-sm tracking-[0.25em] text-magenta uppercase">Instagram</p>
+			<h2 class="font-display max-w-2xl text-balance text-4xl font-semibold text-tinta md:text-5xl">
+				La magia también está en Instagram
+			</h2>
+			<p class="mt-4 max-w-xl leading-relaxed text-tinta/75">
+				Momentos de los viajes, tips de los parques y novedades de las próximas salidas.
+			</p>
+		</Reveal>
+
+		{
+			instagramPosts.length > 0 && (
+				<>
+					<div class="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-6">
+						{instagramPosts.map((url, i) => (
+							<Reveal delay={Math.min(i * 100, 300)} class="w-full max-w-[348px]">
+								<div class="ig-frame">
+									<Icon name="star" size={20} class="ig-star" />
+									<blockquote
+										class="instagram-media"
+										data-instgrm-permalink={url}
+										data-instgrm-version="14"
+									>
+										<a href={url} target="_blank" rel="noopener">
+											Ver este post en Instagram
+										</a>
+									</blockquote>
+								</div>
+							</Reveal>
+						))}
+					</div>
+					<script is:inline async src="https://www.instagram.com/embed.js" />
+				</>
+			)
+		}
+
+		<Reveal delay={150}>
+			<a
+				href={SITE.instagram}
+				target="_blank"
+				rel="noopener"
+				class="btn-magic mt-10 inline-flex"
+			>
+				<Icon name="instagram" size={18} />
+				Seguime en {SITE.instagramHandle}
+			</a>
+		</Reveal>
+	</div>
+</section>
+
+<style>
+	/* The embed itself is an Instagram iframe we can't restyle; this wrapper
+	   just rounds it, floats it and anchors the corner star. */
+	.ig-frame {
+		position: relative;
+		height: 100%;
+		border-radius: 1.5rem;
+		box-shadow: 0 8px 30px rgb(43 45 66 / 0.1);
+		transition:
+			transform 0.25s ease,
+			box-shadow 0.25s ease;
+	}
+
+	.ig-frame:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 14px 40px rgb(43 45 66 / 0.16);
+	}
+
+	/* little star peeking over the corner, like the doodles in the FAQ */
+	.ig-frame :global(.ig-star) {
+		position: absolute;
+		top: -9px;
+		right: 14px;
+		z-index: 1;
+		color: var(--color-destello);
+		filter: drop-shadow(0 1px 2px rgb(37 24 49 / 0.3));
+	}
+
+	/* the blockquote pre-hydration and the iframe embed.js swaps in;
+	   !important beats the inline styles Instagram sets on both */
+	.ig-frame :global(.instagram-media) {
+		width: 100% !important;
+		min-width: 0 !important;
+		max-width: none !important;
+		min-height: 420px;
+		margin: 0 !important;
+		padding: 1.25rem;
+		background: white;
+		border: none !important;
+		border-radius: 1.5rem !important;
+		box-shadow: none !important;
+	}
+
+	.ig-frame :global(.instagram-media a) {
+		color: var(--color-magenta);
+		font-weight: 600;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.ig-frame,
+		.ig-frame:hover {
+			transform: none;
+		}
+	}
+</style>

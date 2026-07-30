@@ -3,27 +3,31 @@
  * everything marked TODO is a placeholder.
  */
 export const SITE = {
-	brand: 'Martu en Disney',
-	title: 'Martu en Disney: Viajes grupales acompañados a Disney Orlando',
+	brand: 'Viajá con Martu',
+	title: 'Viajá con Martu: Viajes grupales acompañados a Disney Orlando',
 	description:
 		'Viajá a Disney Orlando acompañado por Martu: salidas grupales reducidas, organización sin estrés y acompañamiento de principio a fin. Pedí tu consulta sin compromiso.',
 	/** TODO: real domain when purchased */
-	url: 'https://martu-en-disney.nachop.workers.dev',
+	url: 'https://viaja-con-martu.nachop.workers.dev',
 	instagram: 'https://www.instagram.com/pazmartu.m',
 	instagramHandle: '@pazmartu.m',
-	/** TODO: real WhatsApp number, international format without "+" */
-	whatsapp: '59899000000',
+	/** International format without "+" (+598 98 683 181) */
+	whatsapp: '59898683181',
 	/** TODO: real email */
-	email: 'hola@martuendisney.com',
-	/** Booking partner — kept internal for now, not shown on the site. */
+	email: 'hola@viajaconmartu.com',
+	/** Booking partner — handles flights, hotels and tickets. */
 	partner: 'Jetmar',
+	/** Next group departure, shown in the services section. */
+	nextDeparture: 'Mayo 2027',
 } as const;
 
 /** Prefilled WhatsApp messages per CTA. */
 export const WA_MESSAGES = {
 	general: 'Hola Martu! Quiero saber más sobre los viajes a Disney ✨',
-	personalizado: 'Hola Martu! Me interesa el viaje personalizado a Disney. ¿Me contás cómo funciona?',
-	grupal: 'Hola Martu! Quiero saber más sobre las salidas grupales a Disney.',
+	personalizado:
+		'Hola Martu! Ya tengo mi viaje a Disney y me interesa armar un itinerario personalizado. ¿Me contás cómo funciona?',
+	grupal: 'Hola Martu! Quiero sumarme a la salida grupal de mayo 2027 ✨',
+	siguientes: 'Hola Martu! Quiero consultar por las siguientes salidas grupales a Disney.',
 } as const;
 
 export function waLink(message: string = WA_MESSAGES.general): string {

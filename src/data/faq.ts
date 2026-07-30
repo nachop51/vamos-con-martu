@@ -7,41 +7,61 @@ export const faq: FaqItem[] = [
 	{
 		question: '¿Cómo son las salidas grupales?',
 		answer:
-			'Grupos reducidos, flexibles y personalizados. Yo viajo con vos y te acompaño de principio a fin: preparación previa, organización en los parques, tiempo libre y hasta días de compras. La idea es que disfrutes la magia sin ocuparte de la logística.',
+			'Son grupos reducidos, flexibles y personalizados. Viajo con el grupo y me encargo de organizar la experiencia desde mucho antes de despegar, para que solo tengas que disfrutar Disney. Compartimos los momentos más importantes del viaje, combinando actividades en grupo con tiempo libre, pausas para descansar y días de compras.',
+	},
+	{
+		question: '¿Tengo que hacer todo con el grupo?',
+		answer:
+			'No. La idea es combinar actividades compartidas con tiempo libre para que cada uno disfrute Disney a su manera. Hay momentos para estar en grupo y otros para recorrer los parques, descansar o hacer compras con total libertad.',
+	},
+	{
+		question: '¿Qué incluye el viaje?',
+		answer:
+			'Cada salida es diferente, por eso el detalle de lo que incluye y no incluye se comparte junto con la propuesta de cada viaje. Antes de reservar vas a tener toda la información para decidir con tranquilidad.',
 	},
 	{
 		question: '¿Hacen viajes de quinceañeras?',
 		answer:
-			'No. Las salidas no están enfocadas en viajes de quince ni en grupos masivos de adolescentes. Están pensadas para familias, mamás y papás con hijos, grupos de amigas y adultos fans de Disney que prefieren grupos reducidos.',
+			'Las salidas no están pensadas como los tradicionales viajes de quinceañeras. Si querés celebrar tus 15 en Disney junto a tu familia, amigos o sumándote a uno de los grupos, ¡van a ser más que bienvenidos! Lo importante no es la edad, sino las ganas de compartir esta forma de viajar y disfrutar Disney.',
 	},
 	{
 		question: '¿Necesito visa para viajar a Estados Unidos?',
 		answer:
-			'Sí, los uruguayos necesitamos visa de turista (B1/B2) para entrar a Estados Unidos. El trámite lleva tiempo, así que es lo primero que conviene resolver. En tu consulta te oriento sobre cómo encarar el proceso.',
+			'Sí. Hoy los ciudadanos uruguayos necesitamos una visa de turismo B1/B2 vigente para viajar a Estados Unidos. Si tenés cualquier duda sobre el proceso, escribime. Si puedo ayudarte, lo voy a hacer con gusto.',
 	},
 	{
-		question: '¿Con cuánta anticipación tengo que planear el viaje?',
+		question: '¿El grupo sirve para viajar con niños chicos?',
 		answer:
-			'Lo ideal es empezar entre 6 y 12 meses antes: conseguís mejores precios de vuelos y hoteles, llegás con la visa pronta y planificamos los parques sin apuro. Pero si tenés menos tiempo, escribime igual: siempre hay opciones.',
+			'¡Sí! Las familias son bienvenidas. Como los grupos son reducidos y el itinerario está pensado para disfrutar con tranquilidad, buscamos que la experiencia sea agradable tanto para los más chicos como para los adultos.',
 	},
 	{
-		question: '¿Cuál es la mejor época para ir a Disney?',
+		question: '¿Por qué las salidas no son en vacaciones de julio?',
 		answer:
-			'Depende de lo que busques: menos filas, mejor clima o eventos especiales como Halloween y Navidad. Cuando armemos tu viaje te recomiendo las fechas que mejor se adaptan a tu grupo y presupuesto.',
+			'Porque buscamos que la experiencia sea la mejor posible. En vacaciones de julio los parques suelen estar mucho más concurridos, hay más filas y los precios de vuelos y hoteles aumentan considerablemente. Elegimos fechas que permiten disfrutar más Disney y aprovechar mejor el viaje.',
 	},
 	{
-		question: '¿Sirve para viajar con niños chicos?',
+		question: '¿Puedo viajar solo/a?',
 		answer:
-			'¡Claro! Disney está pensado para todas las edades. El itinerario se arma según tu grupo: ritmo más tranquilo, atracciones para los más chicos, descansos y trucos para que los días de parque fluyan.',
+			'¡Obvio! Muchas personas viajan solas. La idea de las salidas grupales es justamente compartir la experiencia y conocer gente con los mismos intereses. Si viajás solo/a, vas a poder compartir habitación (del mismo sexo) para reducir el costo del viaje o consultar por una habitación individual, sujeta a disponibilidad.',
 	},
 	{
 		question: '¿Necesito saber inglés?',
 		answer:
-			'No es imprescindible. En Orlando hay muchísimo personal que habla español, y además te preparo el viaje para que llegues sabiendo cómo moverte: apps, reservas, transporte y qué decir en cada situación.',
+			'Si no sabés inglés, no te preocupes. Nunca debería ser un motivo para dejar de cumplir el sueño de viajar a Disney. Si necesitás ayuda, voy a estar para darte una mano.',
 	},
 	{
-		question: '¿Qué incluye la cotización?',
+		question: '¿Puedo viajar si no soy de Uruguay?',
 		answer:
-			'La cotización se arma según tu viaje: vuelos, alojamiento, entradas a los parques y lo que necesites. Vos me contás tu idea y te paso una propuesta clara, sin compromiso.',
+			'¡No hay problema! Escribime y vemos juntos la mejor forma de sumarte al viaje según tu lugar de origen.',
+	},
+	{
+		question: '¿Necesito haber ido antes a Disney?',
+		answer:
+			'¡No! Tanto si es tu primera vez como si ya conocés Disney, la experiencia está pensada para que la disfrutes al máximo.',
+	},
+	{
+		question: '¿Cómo solicito un itinerario personalizado?',
+		answer:
+			'Es muy simple. Contactame y contame cómo soñás tu viaje. Juntos vamos a definir cuántos días querés viajar, qué parques visitar, qué experiencias priorizar y cualquier otro detalle importante. Después, voy a diseñar un itinerario personalizado para que disfrutes Disney al máximo.',
 	},
 ];

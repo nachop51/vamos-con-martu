@@ -4,22 +4,17 @@ import Reveal from './Reveal.astro';
 import Icon from './Icon.astro';
 import NightSparkles from './NightSparkles.astro';
 import { SITE } from '../config';
-
-// Drop Martu's photo at src/assets/martu/portrait.jpg (or .png/.webp)
-// and it appears automatically; until then a placeholder shows.
-const portraits = import.meta.glob<ImageMetadata>('../assets/martu/portrait.{jpg,jpeg,png,webp}', {
-	eager: true,
-	import: 'default',
-});
-const portrait = Object.values(portraits)[0];
+import portrait from '../assets/martu/martu.webp';
+import martuAndMickey from '../assets/martu/martu-and-mickey.webp';
+import martuInCastle from '../assets/martu/martu-in-castle.webp';
+import fireworks from '../assets/magic-kingdom/closing-fireworks-2.webp';
 
 const chips = ['🇺🇾 Uruguaya', '🎓 Lic. en Comunicación', '🏰 Fan de Disney de toda la vida'];
 
-// Swap these placeholders for real photos the same way: src/assets/martu/
 const polaroids = [
-	{ caption: 'Magic Kingdom ✨', rot: '-7deg', gradient: 'linear-gradient(160deg, #FF37A6, #FF2099)' },
-	{ caption: 'Frente al castillo 🏰', rot: '4deg', gradient: 'linear-gradient(160deg, #A9D6E5, #4E3560)' },
-	{ caption: 'Fuegos de cierre 🎆', rot: '-3deg', gradient: 'linear-gradient(160deg, #EAD94C, #FF37A6)' },
+	{ img: martuAndMickey, caption: 'Con Mickey ✨', rot: '-7deg' },
+	{ img: martuInCastle, caption: 'Frente al castillo 🏰', rot: '4deg' },
+	{ img: fireworks, caption: 'Fuegos de cierre 🎆', rot: '-3deg' },
 ];
 ---
 
@@ -30,22 +25,13 @@ const polaroids = [
 			<div class="relative mx-auto w-fit pb-16">
 				<!-- arch portrait -->
 				<div class="portrait relative w-64 overflow-hidden sm:w-72">
-					{
-						portrait ? (
-							<Image
-								src={portrait}
-								alt="Martina Paz, Martu, en Disney"
-								class="h-full w-full object-cover"
-								widths={[320, 640]}
-								sizes="(max-width: 640px) 320px, 640px"
-							/>
-						) : (
-							<div class="placeholder flex h-full w-full flex-col items-center justify-center gap-3">
-								<Icon name="crown" size={44} class="text-white/80" />
-								<span class="font-display text-5xl font-semibold text-white">M</span>
-							</div>
-						)
-					}
+					<Image
+						src={portrait}
+						alt="Martina Paz, Martu, en Disney"
+						class="h-full w-full object-cover"
+						widths={[320, 640]}
+						sizes="(max-width: 640px) 320px, 640px"
+					/>
 				</div>
 				<!-- name plate -->
 				<div class="nameplate absolute -bottom-0 left-1/2 w-max -translate-x-1/2 rounded-2xl bg-white px-6 py-3 text-center shadow-xl">
@@ -65,9 +51,13 @@ const polaroids = [
 								tabindex="0"
 								aria-label={`Foto: ${p.caption}`}
 							>
-								<div class="h-24 w-24 rounded-sm" style={`background:${p.gradient}`}>
-									<Icon name="star" size={18} class="m-2 text-white/70" />
-								</div>
+								<Image
+									src={p.img}
+									alt=""
+									widths={[96, 192]}
+									sizes="96px"
+									class="h-24 w-24 rounded-sm object-cover"
+								/>
 								<figcaption class="mt-1.5 text-center text-[10px] leading-tight text-neutral-600">
 									{p.caption}
 								</figcaption>
@@ -148,12 +138,6 @@ const polaroids = [
 			0 0 0 1px rgb(234 217 76 / 0.25),
 			0 24px 70px rgb(0 0 0 / 0.45),
 			0 0 60px rgb(255 55 166 / 0.18);
-	}
-
-	.placeholder {
-		background:
-			radial-gradient(circle at 30% 20%, rgb(255 255 255 / 0.2), transparent 45%),
-			linear-gradient(160deg, #FF37A6, #8f4e93 70%, #4E3560);
 	}
 
 	.nameplate {
