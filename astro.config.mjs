@@ -17,6 +17,9 @@ export default defineConfig({
   },
 
   adapter: cloudflare({
-    imageService: "cloudflare"
+    // "compile": images are resized with sharp at build time and shipped as
+    // static files. The "cloudflare" service emits /cdn-cgi/image/ URLs,
+    // which 404 on workers.dev / zones without Image Transformations.
+    imageService: "compile"
   })
 });
