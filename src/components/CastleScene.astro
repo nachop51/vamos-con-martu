@@ -106,6 +106,35 @@ const PARTICLES = 12;
 
 	<!-- castle silhouette -->
 	<svg class="castle" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax meet" fill="none">
+		<!-- distant scenery peeking over the ridge: smaller and lighter = farther.
+		     Drawn before the main group so the ground hides their bases. -->
+		<g fill="#1A1020" opacity="0.5">
+			<!-- roller coaster on the far horizon -->
+			<path
+				d="M1054 240Q1102 172 1146 238Q1170 208 1194 234"
+				stroke="#1A1020"
+				stroke-width="4"
+				fill="none"
+			/>
+			<path
+				d="M1082 262v-50M1102 262v-56M1146 262v-22M1172 262v-32"
+				stroke="#1A1020"
+				stroke-width="4"
+				fill="none"
+			/>
+			<circle cx="1124" cy="214" r="5" />
+			<circle cx="1133" cy="226" r="5" />
+		</g>
+		<g fill="#1A1020" opacity="0.72">
+			<!-- Tree of Life on its hill (Animal Kingdom) -->
+			<circle cx="296" cy="203" r="20" />
+			<circle cx="320" cy="192" r="24" />
+			<circle cx="345" cy="203" r="18" />
+			<circle cx="279" cy="214" r="13" />
+			<circle cx="359" cy="215" r="12" />
+			<circle cx="320" cy="212" r="21" />
+			<path d="M305 268c4-14 3-30 5-48l10-8 10 9c1 18-1 34 5 47h-9c-2-5-6-5-8 0Z" />
+		</g>
 		<g fill="#1A1020">
 			<!-- ground / treeline -->
 			<path
@@ -113,14 +142,28 @@ const PARTICLES = 12;
 			/>
 			<!-- outer walls -->
 			<path d="M430 300h340v-60H430Z" />
-			<!-- left: cone peak + pines -->
-			<path d="M298 264 344 148l46 116Z" />
-			<path d="M196 266l20-42 20 42Zm52 2 16-34 16 34Z" />
-			<!-- right: domed pavilion + small turret + pines -->
+			<!-- left, foreground: Spaceship Earth on its splayed legs (Epcot) -->
+			<path d="M82 226 54 270h24l21-30Z" />
+			<path d="M154 226l28 44h-24l-21-30Z" />
+			<circle cx="118" cy="180" r="66" />
+			<!-- faint geodesic lattice over the sphere -->
+			<g stroke="#31203C" stroke-width="1.5" fill="none">
+				<path d="M118 114v132" />
+				<path d="M56 158a88 30 0 0 0 124 0" />
+				<path d="M56 204a88 30 0 0 1 124 0" />
+				<path d="M86 122a54 56 0 0 0 0 116" />
+				<path d="M150 122a54 56 0 0 1 0 116" />
+			</g>
+			<!-- right: domed pavilion + small turret, part of the castle grounds -->
 			<path d="M818 266a46 46 0 0 1 92 0Z" />
 			<path d="M862 222v-16" stroke="#1A1020" stroke-width="3" />
 			<path d="M946 268v-46h26v46Zm-4-46 17-26 17 26Z" />
-			<path d="M1006 268l17-36 17 36Z" />
+			<!-- right, mid-distance: Tower of Terror (Hollywood Studios) -->
+			<path d="M1002 300v-44h120v44Z" />
+			<path d="M1008 300V168h26v132Zm80 0V168h26v132Z" />
+			<path d="M1032 300V140h58v160Z" />
+			<path d="M1034 140v-10h8v10Zm14 0v-10h8v10Zm14 0v-10h8v10Zm14 0v-10h8v10Z" />
+			<path d="M1010 168v-9h7v9Zm12 0v-9h7v9Zm68 0v-9h7v9Zm12 0v-9h7v9Z" />
 			<!-- left tower -->
 			<path d="M472 232v-64h44v64Zm-6-64 28-38 28 38Z" />
 			<!-- right tower -->
@@ -144,6 +187,15 @@ const PARTICLES = 12;
 			<circle class="window" cx="654" cy="190" r="2.6" style="animation-delay:2.6s" />
 			<circle class="window" cx="494" cy="200" r="2.6" style="animation-delay:.9s" />
 			<circle class="window" cx="706" cy="200" r="2.6" style="animation-delay:2.1s" />
+			<!-- Tower of Terror window strips -->
+			<rect class="window" x="1046" y="156" width="9" height="12" rx="1" style="animation-delay:1.4s" />
+			<rect x="1068" y="156" width="9" height="12" rx="1" opacity="0.75" />
+			<rect x="1046" y="180" width="9" height="12" rx="1" opacity="0.75" />
+			<rect class="window" x="1068" y="180" width="9" height="12" rx="1" style="animation-delay:3.2s" />
+			<rect class="window" x="1046" y="204" width="9" height="12" rx="1" style="animation-delay:2.4s" />
+			<rect x="1068" y="204" width="9" height="12" rx="1" opacity="0.75" />
+			<rect x="1046" y="228" width="9" height="12" rx="1" opacity="0.75" />
+			<rect x="1068" y="228" width="9" height="12" rx="1" opacity="0.7" />
 		</g>
 	</svg>
 </div>
@@ -339,6 +391,9 @@ const PARTICLES = 12;
 	.window {
 		animation: twinkle 4s ease-in-out infinite;
 		--tw-min: 0.5;
+		/* scale from each window's own center, not the svg's origin */
+		transform-box: fill-box;
+		transform-origin: center;
 	}
 
 	/* firework: 12 rotated arms, each with a particle dot at the tip */

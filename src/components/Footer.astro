@@ -47,9 +47,25 @@ const stars = Array.from({ length: 14 }, (_, i) => ({
 				<path
 					d="M0 240v-34c150-18 300-24 450-18s300 22 450 20 220-14 300-6v38H0Z"
 				/>
-				<!-- coaster mountain with spire -->
-				<path d="M40 240Q95 150 150 60Q205 150 260 240Z" />
-				<path d="M150 58v-22" stroke="#31203C" stroke-width="4" />
+				<!-- giant ferris wheel, slowly turning the evening away -->
+				<path d="M150 130 114 228h10l26-70 26 70h10Z" />
+				<g class="ferris">
+					<circle cx="150" cy="130" r="78" stroke="#31203C" stroke-width="5" fill="none" />
+					<path
+						d="M150 130h78M150 130h-78M150 130v78M150 130v-78M150 130l55 55M150 130l-55 55M150 130l55-55M150 130l-55-55"
+						stroke="#31203C"
+						stroke-width="3"
+					/>
+					<circle cx="228" cy="130" r="5" />
+					<circle cx="205" cy="185" r="5" />
+					<circle cx="150" cy="208" r="5" />
+					<circle cx="95" cy="185" r="5" />
+					<circle cx="72" cy="130" r="5" />
+					<circle cx="95" cy="75" r="5" />
+					<circle cx="150" cy="52" r="5" />
+					<circle cx="205" cy="75" r="5" />
+				</g>
+				<circle cx="150" cy="130" r="7" />
 				<!-- pines -->
 				<path d="M265 210l22-52 22 52Zm48 8 18-40 18 40Z" />
 				<!-- geodesic sphere resting on the treeline -->
@@ -100,6 +116,31 @@ const stars = Array.from({ length: 14 }, (_, i) => ({
 				<circle class="win" cx="513" cy="178" r="3" style="--tw-min:0.4;animation-delay:0.9s" />
 				<circle class="win" cx="687" cy="178" r="3" style="--tw-min:0.4;animation-delay:3.1s" />
 				<circle class="win" cx="1103" cy="162" r="3.5" style="--tw-min:0.45;animation-delay:1.6s" />
+			</g>
+			<!-- elevated monorail beam, front of the whole scene -->
+			<g fill="#31203C">
+				<path d="M0 150h1200" stroke="#31203C" stroke-width="5" />
+				{
+					[70, 210, 330, 470, 610, 750, 890, 1030, 1170].map((x) => (
+						<path d={`M${x} 152l-5 88h14l-5-88Z`} />
+					))
+				}
+			</g>
+			<!-- the monorail heading home: glides across on a loop -->
+			<g class="monorail">
+				<path
+					fill="#31203C"
+					d="M2 153V138q0-8 8-8h122q18 0 30 9l10 7q6 5 0 7Z"
+				/>
+				<g fill="var(--color-destello)" opacity="0.85">
+					<rect x="14" y="135" width="14" height="7" rx="2" />
+					<rect x="38" y="135" width="14" height="7" rx="2" />
+					<rect x="62" y="135" width="14" height="7" rx="2" />
+					<rect x="86" y="135" width="14" height="7" rx="2" />
+					<rect x="110" y="135" width="14" height="7" rx="2" />
+					<rect x="140" y="136" width="16" height="8" rx="3" />
+				</g>
+				<circle cx="171" cy="148" r="2.5" fill="#F6EFA6" opacity="0.9" />
 			</g>
 		</svg>
 	</div>
@@ -213,6 +254,51 @@ const stars = Array.from({ length: 14 }, (_, i) => ({
 		animation: twinkle 4s ease-in-out infinite;
 		transform-box: fill-box;
 		transform-origin: center;
+	}
+
+	/* ferris wheel: rim, spokes and gondolas all spin together — the gondolas
+	   are plain circles, so orbiting with the wheel still reads correctly */
+	.ferris {
+		transform-box: view-box;
+		transform-origin: 150px 130px;
+		animation: ferris-turn 48s linear infinite;
+	}
+
+	@keyframes ferris-turn {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.ferris {
+			animation: none;
+		}
+	}
+
+	/* the monorail crosses the whole skyline and loops around; the negative
+	   delay means it's already mid-scene when the footer scrolls into view */
+	.monorail {
+		animation: monorail-cross 26s linear infinite;
+		animation-delay: -7s;
+		will-change: transform;
+	}
+
+	@keyframes monorail-cross {
+		from {
+			transform: translateX(-220px);
+		}
+		to {
+			transform: translateX(1240px);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		/* parked over the coaster stretch, where the sky is mostly open */
+		.monorail {
+			animation: none;
+			transform: translateX(920px);
+		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {
