@@ -1,0 +1,366 @@
+@import 'tailwindcss';
+
+@theme {
+	/* Official brand palette, mapped onto the “noche de fuegos” design.
+	   Night purples are derived from Dark Accent (#31203C). */
+	--color-noche: #251831;
+	--color-noche-2: #31203C; /* Dark Accent */
+	--color-violeta: #3F2A4E;
+	--color-crepusculo: #4E3560;
+	--color-magenta: #FF2099; /* Action Pink */
+	--color-rosa: #FF37A6; /* Primary Pink */
+	--color-rosa-soft: #FF7FC5; /* Soft Pink */
+	--color-rosa-suave: #FFCAE9; /* Pink Background */
+	--color-azul: #0077B6; /* Primary Blue */
+	--color-lila: #A9D6E5; /* Soft Blue */
+	--color-destello: #EAD94C; /* Highlight Gold */
+	--color-oro-suave: #F6EFA6; /* Soft Gold */
+	--color-nube: #FCFBF8; /* Background */
+	--color-superficie: #FFFFFF; /* Surface */
+	--color-tinta: #2B2D42; /* Text Primary */
+	--color-tinta-2: #6D6E8A; /* Text Secondary */
+
+	--font-display: 'Fraunces Variable', ui-serif, Georgia, serif;
+	--font-body: 'Figtree Variable', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ---------- Base ---------- */
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: var(--font-body);
+	background-color: var(--color-noche);
+	color: var(--color-nube);
+	overflow-x: hidden;
+}
+
+::selection {
+	background: var(--color-rosa);
+	color: white;
+}
+
+.font-display {
+	font-family: var(--font-display);
+	font-variation-settings:
+		'SOFT' 100,
+		'WONK' 1;
+}
+
+/* Focus visible — gold ring reads on both night and dawn sections */
+:focus-visible {
+	outline: 2px solid var(--color-destello);
+	outline-offset: 3px;
+	border-radius: 4px;
+}
+
+/* ---------- Night → dawn section chain ----------
+   Each section's gradient ends where the next one begins,
+   so the whole page reads as one continuous sky. */
+
+.sky-hero {
+	background: linear-gradient(to bottom, var(--color-noche), var(--color-noche-2));
+}
+/* starts at the castle-ground color so the hero silhouette blends seamlessly */
+.sky-sobre {
+	background: linear-gradient(to bottom, #1A1020, var(--color-violeta));
+}
+.sky-servicios {
+	background: linear-gradient(to bottom, var(--color-violeta), var(--color-crepusculo));
+}
+/* The dawn: dusk purple melts through mauve into soft pink — many close
+   stops to avoid banding. Ends pink: the cloud-band horizon (in the
+   HowItWorks scene) hands off to the day sections' nube background. */
+.sky-amanecer {
+	/* eased ramp: the dusk lingers, then brightens gently — no visible band
+	   where the night sections' flat crepusculo hands over */
+	background: linear-gradient(
+		to bottom,
+		var(--color-crepusculo) 0%,
+		#513765 12%,
+		#563c6a 20%,
+		#5d4272 28%,
+		#654a7c 36%,
+		#6f5488 44%,
+		#7b6095 52%,
+		#896da3 60%,
+		#997cb1 68%,
+		#ab8dbf 76%,
+		#bfa0cc 83%,
+		#d4b4d9 89%,
+		#e9c7e5 94%,
+		#f9d4ec 98%,
+		#ffd8ee 100%
+	);
+}
+.sky-dia {
+	background: var(--color-nube);
+}
+.sky-cierre {
+	background: linear-gradient(to bottom, var(--color-nube), #FFCAE9);
+}
+
+/* ---------- Sparkles & fireworks ---------- */
+
+@keyframes twinkle {
+	0%,
+	100% {
+		opacity: var(--tw-min, 0.25);
+		transform: scale(0.85);
+	}
+	50% {
+		opacity: var(--tw-max, 1);
+		transform: scale(1.1);
+	}
+}
+
+@keyframes bloom {
+	0% {
+		transform: scale(calc(0.1 * var(--fw-scale, 1)));
+		opacity: 0;
+	}
+	4% {
+		opacity: 1;
+	}
+	20% {
+		transform: scale(var(--fw-scale, 1));
+		opacity: 0.85;
+	}
+	34%,
+	100% {
+		transform: scale(calc(1.4 * var(--fw-scale, 1)));
+		opacity: 0;
+	}
+}
+
+@keyframes float-slow {
+	0%,
+	100% {
+		transform: translateY(0) rotate(var(--rot, 0deg));
+	}
+	50% {
+		transform: translateY(-10px) rotate(var(--rot, 0deg));
+	}
+}
+
+@keyframes cloud-drift {
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+	50% {
+		transform: translateX(var(--drift, 24px));
+	}
+}
+
+@keyframes rise-in {
+	from {
+		opacity: 0;
+		transform: translateY(24px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* ---------- Rockets & bursts (created from JS, hence global) ---------- */
+
+.rocket {
+	position: absolute;
+	width: 3px;
+	height: 16px;
+	border-radius: 999px;
+	background: linear-gradient(to top, transparent, var(--fw-color, #EAD94C));
+	box-shadow: 0 0 8px var(--fw-color, #EAD94C);
+	animation: rocket-fly 0.9s cubic-bezier(0.3, 0.6, 0.5, 1) forwards;
+}
+
+@keyframes rocket-fly {
+	0% {
+		offset-distance: 0%;
+		opacity: 0.4;
+	}
+	15% {
+		opacity: 1;
+	}
+	100% {
+		offset-distance: 100%;
+		opacity: 0.9;
+	}
+}
+
+/* breadcrumb dust dropped along the rocket's curve; each dot fades alone */
+.trail-dot {
+	position: absolute;
+	width: 3px;
+	height: 3px;
+	border-radius: 999px;
+	background: var(--fw-color, #EAD94C);
+	box-shadow: 0 0 6px var(--fw-color, #EAD94C);
+	animation: trail-dot-fade 1s ease-out forwards;
+	pointer-events: none;
+}
+
+@keyframes trail-dot-fade {
+	0% {
+		opacity: 0.55;
+		transform: scale(1);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(0.25);
+	}
+}
+
+.burst {
+	position: absolute;
+	width: 4px;
+	height: 4px;
+	animation: bloom-once 1.3s ease-out forwards;
+}
+
+.burst i {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 2px;
+	height: 58px;
+	transform-origin: top center;
+}
+
+.burst i::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: -1.5px;
+	width: 5px;
+	height: 5px;
+	border-radius: 999px;
+	background: var(--fw-color, #EAD94C);
+	box-shadow: 0 0 8px var(--fw-color, #EAD94C);
+}
+
+@keyframes bloom-once {
+	0% {
+		transform: scale(calc(0.1 * var(--fw-scale, 1)));
+		opacity: 0;
+	}
+	12% {
+		opacity: 1;
+	}
+	60% {
+		transform: scale(var(--fw-scale, 1));
+		opacity: 0.85;
+	}
+	100% {
+		transform: scale(calc(1.45 * var(--fw-scale, 1)));
+		opacity: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.rocket,
+	.burst {
+		display: none;
+	}
+}
+
+/* ---------- Scroll parallax ---------- */
+
+/* JS drives the `translate` property (never `transform`, which the
+   twinkle/float animations own). Promote to its own layer for smoothness. */
+@media (prefers-reduced-motion: no-preference) {
+	[data-parallax] {
+		will-change: translate;
+	}
+}
+
+/* ---------- Scroll reveal ---------- */
+
+.reveal {
+	opacity: 0;
+	transform: translateY(24px);
+	transition:
+		opacity 0.6s ease-out,
+		transform 0.6s ease-out;
+	transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* Hero load sequence */
+.hero-enter {
+	opacity: 0;
+	animation: rise-in 0.8s ease-out forwards;
+	animation-delay: var(--enter-delay, 0ms);
+}
+
+/* ---------- Buttons ---------- */
+
+.btn-magic {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	border-radius: 999px;
+	background: linear-gradient(135deg, var(--color-rosa), var(--color-magenta));
+	color: white;
+	font-weight: 700;
+	padding: 0.875rem 1.75rem;
+	box-shadow: 0 4px 24px rgb(255 55 166 / 0.35);
+	transition:
+		transform 0.2s ease,
+		box-shadow 0.2s ease;
+}
+
+.btn-magic:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 32px rgb(255 55 166 / 0.55);
+}
+
+.btn-ghost {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	border-radius: 999px;
+	border: 1.5px solid var(--color-lila);
+	color: var(--color-nube);
+	font-weight: 600;
+	padding: 0.875rem 1.75rem;
+	transition:
+		border-color 0.2s ease,
+		background-color 0.2s ease,
+		transform 0.2s ease;
+}
+
+.btn-ghost:hover {
+	border-color: var(--color-destello);
+	background: rgb(255 255 255 / 0.06);
+	transform: translateY(-2px);
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+	.reveal,
+	.hero-enter {
+		opacity: 1;
+		transform: none;
+		animation: none;
+		transition: none;
+	}
+	.twinkle,
+	.firework,
+	[class*='float'] {
+		animation: none !important;
+	}
+}

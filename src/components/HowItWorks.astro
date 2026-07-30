@@ -1,0 +1,339 @@
+---
+import Reveal from './Reveal.astro';
+
+const steps = [
+	{
+		title: 'Antes',
+		text: 'Preparación y acompañamiento previo: reuniones pre viaje, grupo de WhatsApp, ayuda con las apps y todos los tips para llegar sin estrés.',
+	},
+	{
+		title: 'Durante',
+		text: 'Organización sin estrés: horarios, traslados y entradas resueltos, con tiempo libre en los parques, pausas para descansar y flexibilidad para adaptar el plan al grupo.',
+	},
+	{
+		title: 'Después',
+		text: 'Fotos y recuerdos para revivir la experiencia, y una comunidad que queda para el próximo viaje.',
+	},
+];
+
+// hand-drawn cumulus silhouettes: puffy lobed tops, flat undersides —
+// same crafted-bezier language as the castle and the cloud bands.
+// cx/cy = shape center, used to stack scaled copies for volume.
+const CLOUD_SHAPES = [
+	{
+		viewBox: '0 0 210 70',
+		cx: 105,
+		cy: 35,
+		d: 'M20 62C8 62 2 52 10 44 4 32 18 24 30 28 34 14 54 8 66 16 74 4 98 2 108 12 118 4 138 6 144 16 158 10 174 16 176 28 190 26 200 34 196 44 206 48 204 58 192 62Z',
+	},
+	{
+		viewBox: '0 0 170 66',
+		cx: 85,
+		cy: 33,
+		d: 'M28 60C14 60 8 50 16 42 10 30 24 20 38 26 44 12 66 8 78 18 88 6 110 8 116 20 130 14 146 22 144 34 158 34 164 46 154 54 148 60 140 62 128 60Z',
+	},
+];
+
+// density falloff: wide faint halo → mid wash → dense low core.
+// Crisp translucent layers, like the cloud bands stacking on the horizon.
+const CLOUD_LAYERS = [
+	{ scale: 1.16, dy: 0, opacity: 0.22 },
+	{ scale: 1, dy: 0, opacity: 0.38 },
+	{ scale: 0.74, dy: 7, opacity: 0.5 },
+];
+
+// drifting clouds in the upper sky. Speeds stay tiny: the sky zone clips
+// at its edges, and large parallax offsets shove clouds through them.
+const clouds = [
+	{ left: '4%', top: '32%', w: 280, opacity: 0.6, drift: 28, dur: 18, speed: 0.06, shape: 0, flip: false, wisp: false },
+	{ left: '40%', top: '44%', w: 340, opacity: 0.7, drift: -24, dur: 22, speed: 0.04, shape: 1, flip: false, wisp: false },
+	{ left: '73%', top: '26%', w: 240, opacity: 0.5, drift: 24, dur: 17, speed: 0.08, shape: 0, flip: true, wisp: false },
+	// tiny distant wisps (hidden on small screens — too crowded there)
+	{ left: '26%', top: '22%', w: 110, opacity: 0.3, drift: 16, dur: 15, speed: 0.09, shape: 1, flip: true, wisp: true },
+	{ left: '58%', top: '30%', w: 90, opacity: 0.25, drift: -14, dur: 20, speed: 0.1, shape: 0, flip: false, wisp: true },
+	{ left: '88%', top: '46%', w: 130, opacity: 0.35, drift: 18, dur: 16, speed: 0.07, shape: 1, flip: false, wisp: true },
+	{ left: '14%', top: '52%', w: 100, opacity: 0.3, drift: -16, dur: 19, speed: 0.05, shape: 0, flip: true, wisp: true },
+];
+const dawnStars = [
+	{ left: '12%', top: '8%' },
+	{ left: '31%', top: '18%' },
+	{ left: '55%', top: '6%' },
+	{ left: '70%', top: '20%' },
+	{ left: '89%', top: '12%' },
+	{ left: '44%', top: '26%' },
+];
+
+// hot-air balloons drifting over the cloud sea, sized by distance
+const balloons = [
+	{ left: '13%', top: '38%', size: 48, main: '#FF37A6', accent: '#FF7FC5', speed: 0.12, delay: 0 },
+	{ left: '80%', top: '50%', size: 36, main: '#EAD94C', accent: '#F6EFA6', speed: 0.05, delay: 2.4 },
+	{ left: '44%', top: '26%', size: 22, main: '#A9D6E5', accent: '#DCEFF5', speed: 0.15, delay: 4.1 },
+	{ left: '68%', top: '34%', size: 15, main: '#FF7FC5', accent: '#FFCAE9', speed: 0.18, delay: 1.3 },
+];
+
+// a loose flock heading into the sunrise
+const birds = [
+	{ left: '58%', top: '52%', size: 26, delay: 0.8 },
+	{ left: '63%', top: '46%', size: 18, delay: 2 },
+	{ left: '54%', top: '45%', size: 15, delay: 4.6 },
+	{ left: '35%', top: '56%', size: 20, delay: 3.2 },
+	{ left: '30%', top: '50%', size: 13, delay: 1.4 },
+];
+---
+
+<section id="como-funciona" class="sky-dia relative -mt-px scroll-mt-20 overflow-hidden">
+	<!-- dawn sky: the night melts into a sunrise over a sea of clouds -->
+	<div class="sky-amanecer dawn-sky relative h-[clamp(360px,46vh,560px)]" aria-hidden="true">
+		{
+			dawnStars.map((s, i) => (
+				<span
+					class="dawn-star twinkle"
+					style={`left:${s.left};top:${s.top};animation-delay:${i * 0.6}s`}
+				>
+					✦
+				</span>
+			))
+		}
+		{
+			clouds.map((c, i) => (
+				<span
+					class:list={['cloud', c.wisp && 'cloud--wisp']}
+					data-parallax={c.speed}
+					style={`left:${c.left};top:${c.top};--cw:${c.w}px;opacity:${c.opacity};--drift:${c.drift}px;animation-duration:${c.dur}s`}
+				>
+					<svg
+						viewBox={CLOUD_SHAPES[c.shape].viewBox}
+						width="100%"
+						overflow="visible"
+						style={c.flip ? 'transform:scaleX(-1)' : undefined}
+					>
+						{CLOUD_LAYERS.map((l) => {
+							const s = CLOUD_SHAPES[c.shape];
+							return (
+								<path
+									d={s.d}
+									fill="#fff"
+									opacity={l.opacity}
+									transform={`translate(${s.cx} ${s.cy + l.dy}) scale(${l.scale}) translate(${-s.cx} ${-s.cy})`}
+								/>
+							);
+						})}
+					</svg>
+				</span>
+			))
+		}
+
+		<!-- the sun: fully hidden behind the cloud sea when the section enters,
+		     then pops up with the scroll and clears the clouds -->
+		<div class="sun-glow" data-parallax="-0.3" data-parallax-min="-36"></div>
+		<div class="sun" data-parallax="-0.3" data-parallax-min="-36"></div>
+
+		{
+			birds.map((b) => (
+				<span
+					class="bird"
+					style={`left:${b.left};top:${b.top};animation-delay:${b.delay}s`}
+				>
+					<svg
+						width={b.size}
+						viewBox="0 0 24 8"
+						fill="none"
+						stroke="#4E3560"
+						stroke-width="1.6"
+						stroke-linecap="round"
+					>
+						<path d="M2 6Q6 1.5 11 5.5M11 5.5Q16 1.5 21 6" />
+					</svg>
+				</span>
+			))
+		}
+
+		{
+			balloons.map((b) => (
+				<span
+					class="balloon"
+					data-parallax={b.speed}
+					style={`left:${b.left};top:${b.top};animation-delay:${b.delay}s`}
+				>
+					<svg width={b.size} viewBox="0 0 40 56" fill="none">
+						<path
+							d="M20 2C10.6 2 3 9.8 3 19.4 3 28 10 34.6 15 40.6h10c5-6 12-12.6 12-21.2C37 9.8 29.4 2 20 2Z"
+							fill={b.main}
+						/>
+						<path
+							d="M20 2c-3.8 0-7 7.8-7 17.4 0 8.6 3 15.2 4.6 21.2h4.8c1.6-6 4.6-12.6 4.6-21.2C27 9.8 23.8 2 20 2Z"
+							fill={b.accent}
+						/>
+						<path d="M15.5 41 14.5 47m10-6 1 6" stroke="#31203C" stroke-width="1.3" />
+						<rect x="14" y="46.5" width="12" height="7.5" rx="2.5" fill="#31203C" />
+					</svg>
+				</span>
+			))
+		}
+
+		<!-- sea of clouds: back band drifts, front band is the horizon into the day -->
+		<svg class="cloud-band band-back" viewBox="0 0 1440 110" preserveAspectRatio="none">
+			<path
+				d="M0 110V60C60 38 110 34 160 42S260 74 340 68 480 30 560 34 700 66 740 62 880 28 940 32 1080 64 1120 60 1260 30 1300 34 1420 52 1440 46V110Z"
+				fill="#fff"
+				opacity="0.5"
+			/>
+		</svg>
+		<svg class="cloud-band band-front" viewBox="0 0 1440 90" preserveAspectRatio="none">
+			<path
+				d="M0 90V48C60 26 120 20 180 28S320 60 400 54 540 22 620 26 760 58 820 54 960 24 1030 28 1170 58 1240 54 1390 28 1440 34V90Z"
+				fill="var(--color-nube)"
+			/>
+		</svg>
+	</div>
+
+	<div class="relative mx-auto max-w-6xl px-5 pt-6 pb-16 md:pb-20">
+		<Reveal>
+			<p class="font-display mb-3 text-sm tracking-[0.25em] text-magenta uppercase">Cómo funciona</p>
+			<h2 class="font-display max-w-2xl text-balance text-4xl font-semibold text-tinta md:text-5xl">
+				Un viaje acompañado de principio a fin
+			</h2>
+		</Reveal>
+
+		<ol class="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+			{
+				steps.map((step, i) => (
+					<li class="step relative">
+						<Reveal delay={i * 150} class="h-full">
+							<span class="step-badge font-display" aria-hidden="true">{i + 1}</span>
+							<h3 class="font-display mt-5 text-2xl font-semibold text-tinta">{step.title}</h3>
+							<p class="mt-3 leading-relaxed text-tinta/75">{step.text}</p>
+						</Reveal>
+					</li>
+				))
+			}
+		</ol>
+	</div>
+</section>
+
+<style>
+	.step-badge {
+		display: grid;
+		place-items: center;
+		width: 2.75rem;
+		height: 2.75rem;
+		border-radius: 999px;
+		font-size: 1.35rem;
+		font-weight: 600;
+		color: white;
+		background: linear-gradient(135deg, var(--color-rosa), var(--color-magenta));
+		box-shadow: 0 4px 16px rgb(255 32 153 / 0.35);
+	}
+
+	/* --- sunrise scenery --- */
+
+	.dawn-sky {
+		pointer-events: none;
+		overflow: hidden;
+	}
+
+	.dawn-star {
+		position: absolute;
+		font-size: 11px;
+		color: rgb(255 255 255 / 0.7);
+		animation: twinkle 4s ease-in-out infinite;
+		--tw-min: 0.1;
+	}
+
+	/* crisp layered silhouette — same flat-vector language as the cloud
+	   bands and the castle. Blur reads as a low-quality asset; none. */
+	.cloud {
+		position: absolute;
+		width: var(--cw);
+		animation: cloud-drift 18s ease-in-out infinite;
+	}
+
+	/* small screens: shrink clouds and drop the wisps — full-size scene is
+	   too crowded in a 375px-wide sky */
+	@media (max-width: 640px) {
+		.cloud {
+			width: calc(var(--cw) * 0.55);
+		}
+
+		.cloud--wisp {
+			display: none;
+		}
+	}
+
+	.cloud svg {
+		display: block;
+	}
+
+	.sun-glow {
+		position: absolute;
+		left: 50%;
+		bottom: -120px;
+		transform: translateX(-50%);
+		width: min(1000px, 130vw);
+		height: 440px;
+		background: radial-gradient(
+			ellipse 50% 42% at center,
+			rgb(234 217 76 / 0.55),
+			rgb(255 127 197 / 0.3) 45%,
+			transparent 72%
+		);
+	}
+
+	/* home position sits clear above the cloud bands; the -0.3 parallax
+	   holds it far below them until the scroll carries it up */
+	.sun {
+		position: absolute;
+		left: 50%;
+		bottom: 96px;
+		transform: translateX(-50%);
+		width: clamp(56px, 12vw, 92px);
+		height: clamp(56px, 12vw, 92px);
+		border-radius: 999px;
+		background: radial-gradient(circle at 42% 38%, #FDF8D8, var(--color-oro-suave) 55%, var(--color-destello));
+		box-shadow:
+			0 0 50px rgb(234 217 76 / 0.8),
+			0 0 120px rgb(246 239 166 / 0.5);
+	}
+
+	.bird {
+		position: absolute;
+		opacity: 0.55;
+		animation: float-slow 8s ease-in-out infinite;
+	}
+
+	.balloon {
+		position: absolute;
+		filter: drop-shadow(0 6px 14px rgb(49 32 60 / 0.25));
+		animation: float-slow 9s ease-in-out infinite;
+	}
+
+	.cloud-band {
+		position: absolute;
+		inset-inline: 0;
+		width: 100%;
+		height: auto;
+	}
+
+	/* static and anchored to the very bottom: only its wavy crest rises above
+	   the front band — a moving or lifted band exposes its flat bottom edge
+	   as a hard horizontal line */
+	.band-back {
+		bottom: 0;
+		height: clamp(120px, 15vw, 180px);
+	}
+
+	/* -1px: no hairline gap against the day section below */
+	.band-front {
+		bottom: -1px;
+		height: clamp(56px, 9vw, 90px);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.cloud,
+		.dawn-star,
+		.bird,
+		.balloon {
+			animation: none;
+		}
+	}
+</style>

@@ -1,0 +1,2 @@
+[  147891ms] ReferenceError: castle is not defined
+    at  (http://localhost:4321/Users/nacho/dev/vamos-marti/src/components/CastleScene.astro?astro&type=script&index=0&lang.ts:73:2)

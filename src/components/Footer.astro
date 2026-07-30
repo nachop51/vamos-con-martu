@@ -1,0 +1,268 @@
+---
+import Icon from './Icon.astro';
+import { SITE, WA_MESSAGES, waLink } from '../config';
+
+const year = new Date().getFullYear();
+
+const navLinks = [
+	{ href: '#sobre-mi', label: 'Sobre mí' },
+	{ href: '#servicios', label: 'Servicios' },
+	{ href: '#como-funciona', label: 'Cómo funciona' },
+	{ href: '#preguntas', label: 'Preguntas frecuentes' },
+	{ href: '#contacto', label: 'Contacto' },
+];
+
+const stars = Array.from({ length: 14 }, (_, i) => ({
+	left: `${(2 + i * 7 + Math.random() * 5).toFixed(1)}%`,
+	top: `${(8 + Math.random() * 80).toFixed(1)}%`,
+	size: Math.random() < 0.7 ? 2 : 3,
+	delay: (Math.random() * 4).toFixed(1),
+	dur: (2.5 + Math.random() * 3).toFixed(1),
+}));
+
+---
+
+<footer class="footer relative -mt-px">
+	<!-- sunset horizon: the pink day fades behind the castle one last time -->
+	<div class="sunset relative overflow-hidden" aria-hidden="true">
+		<svg class="skyline" viewBox="0 0 1200 240" preserveAspectRatio="xMidYMax meet" fill="none">
+			<defs>
+				<radialGradient id="sunset-sun" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" stop-color="#F6EFA6" stop-opacity="0.95" />
+					<stop offset="34%" stop-color="#EAD94C" stop-opacity="0.75" />
+					<stop offset="62%" stop-color="#FF7FC5" stop-opacity="0.3" />
+					<stop offset="100%" stop-color="#FF7FC5" stop-opacity="0" />
+				</radialGradient>
+			</defs>
+
+			<!-- the sun sinking between the sphere and the castle -->
+			<circle cx="500" cy="205" r="160" fill="url(#sunset-sun)" />
+			<circle cx="500" cy="205" r="54" fill="#F6EFA6" opacity="0.9" />
+
+			<!-- the park at closing time: coaster mountain, geodesic sphere, the
+			     castle everyone says goodnight to, monorail heading home, and a
+			     princess turret watching from the hill -->
+			<g fill="#31203C" stroke-linecap="round">
+				<!-- ground -->
+				<path
+					d="M0 240v-34c150-18 300-24 450-18s300 22 450 20 220-14 300-6v38H0Z"
+				/>
+				<!-- coaster mountain with spire -->
+				<path d="M40 240Q95 150 150 60Q205 150 260 240Z" />
+				<path d="M150 58v-22" stroke="#31203C" stroke-width="4" />
+				<!-- pines -->
+				<path d="M265 210l22-52 22 52Zm48 8 18-40 18 40Z" />
+				<!-- geodesic sphere resting on the treeline -->
+				<circle cx="400" cy="168" r="46" />
+				<!-- the castle: keep, spire, four towers, flags flying -->
+				<path d="M480 240v-50h240v50Z" />
+				<path d="M496 240v-90h34v90Z" />
+				<path d="M489 152l24-46 24 46Z" />
+				<path d="M513 106v-16l10 3.5-10 3.5" stroke="#31203C" stroke-width="2.5" />
+				<path d="M540 240v-70h24v70Z" />
+				<path d="M535 172l17-32 17 32Z" />
+				<path d="M560 240V120h80v120Z" />
+				<path d="M552 122l48-70 48 70Z" />
+				<path d="M600 52v-20l13 4.5-13 4.5" stroke="#31203C" stroke-width="3" />
+				<path d="M636 240v-70h24v70Z" />
+				<path d="M631 172l17-32 17 32Z" />
+				<path d="M670 240v-90h34v90Z" />
+				<path d="M663 152l24-46 24 46Z" />
+				<path d="M687 106v-16l10 3.5-10 3.5" stroke="#31203C" stroke-width="2.5" />
+				<!-- roller coaster: two humps, lattice supports, a little train
+				     easing down the first drop -->
+				<path
+					d="M732 214Q798 108 862 206Q922 128 982 206Q1018 158 1058 212"
+					stroke="#31203C"
+					stroke-width="5"
+					fill="none"
+				/>
+				<path
+					d="M780 240v-72M800 240v-84M862 240v-30M922 240v-66M944 240v-62M1020 240v-56"
+					stroke="#31203C"
+					stroke-width="5"
+					fill="none"
+				/>
+				<circle cx="826" cy="158" r="7" />
+				<circle cx="842" cy="176" r="7" />
+				<circle cx="856" cy="194" r="7" />
+				<!-- princess turret with pennant, little sister tower beside it -->
+				<path d="M1088 240V128h30v112Z" />
+				<path d="M1080 130l23-54 23 54Z" />
+				<path d="M1103 76v-18l12 4-12 4" stroke="#31203C" stroke-width="3" />
+				<path d="M1130 240v-52h22v52Z" />
+				<path d="M1126 190l15-30 15 30Z" />
+			</g>
+			<!-- lit windows: someone is still home -->
+			<g fill="var(--color-destello)">
+				<circle class="win" cx="600" cy="150" r="4" style="--tw-min:0.45" />
+				<circle class="win" cx="600" cy="192" r="4" style="--tw-min:0.45;animation-delay:2.2s" />
+				<circle class="win" cx="513" cy="178" r="3" style="--tw-min:0.4;animation-delay:0.9s" />
+				<circle class="win" cx="687" cy="178" r="3" style="--tw-min:0.4;animation-delay:3.1s" />
+				<circle class="win" cx="1103" cy="162" r="3.5" style="--tw-min:0.45;animation-delay:1.6s" />
+			</g>
+		</svg>
+	</div>
+
+	<!-- night content -->
+	<div class="night relative overflow-hidden">
+		<div class="pointer-events-none absolute inset-0" aria-hidden="true" data-parallax="0.2">
+			{
+				stars.map((s) => (
+					<span
+						class="star twinkle absolute rounded-full bg-white"
+						style={`left:${s.left};top:${s.top};width:${s.size}px;height:${s.size}px;--tw-min:0.15;animation-delay:${s.delay}s;animation-duration:${s.dur}s`}
+					/>
+				))
+			}
+		</div>
+
+		<div class="relative mx-auto grid max-w-6xl gap-12 px-5 pt-14 pb-12 md:grid-cols-[1.4fr_1fr_1fr] md:gap-8">
+			<div>
+				<p class="font-display flex items-center gap-2.5 text-2xl font-semibold text-nube">
+					<Icon name="castle" size={26} class="text-destello" />
+					{SITE.brand}
+				</p>
+				<p class="mt-4 max-w-xs leading-relaxed text-lila">
+					Viajes grupales a Disney Orlando, acompañados de principio a fin, para que solo
+					te ocupes de disfrutarlos.
+				</p>
+				<a href={SITE.instagram} target="_blank" rel="noopener" class="ig-link mt-5">
+					<Icon name="instagram" size={17} />
+					{SITE.instagramHandle}
+				</a>
+			</div>
+
+			<nav aria-label="Secciones del sitio">
+				<p class="font-display text-sm tracking-[0.22em] text-destello uppercase">Secciones</p>
+				<ul class="mt-4 space-y-2.5">
+					{
+						navLinks.map((l) => (
+							<li>
+								<a href={l.href} class="foot-link">
+									{l.label}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
+
+			<div>
+				<p class="font-display text-sm tracking-[0.22em] text-destello uppercase">Escribime</p>
+				<ul class="mt-4 space-y-2.5">
+					<li>
+						<a href={waLink(WA_MESSAGES.general)} target="_blank" rel="noopener" class="foot-link">
+							<Icon name="whatsapp" size={17} /> WhatsApp
+						</a>
+					</li>
+					<li>
+						<a href={`mailto:${SITE.email}`} class="foot-link">
+							<Icon name="mail" size={17} />
+							{SITE.email}
+						</a>
+					</li>
+					<li>
+						<a href={SITE.instagram} target="_blank" rel="noopener" class="foot-link">
+							<Icon name="instagram" size={17} /> Instagram
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="relative border-t border-white/10">
+			<div
+				class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 py-6 text-sm text-lila/70 sm:flex-row"
+			>
+				<p>© {year} {SITE.brand} · Hecho con magia desde Uruguay ✨</p>
+				<a href="#" class="top-link">✦ Volver arriba</a>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<style>
+	/* dusk sky behind the silhouette — hands off from the contact section's pink */
+	.sunset {
+		background: linear-gradient(to bottom, #FFCAE9, #FF9FD4 45%, #D06CB9 78%, #8F4E93);
+	}
+
+	.skyline {
+		display: block;
+		margin: 0 auto;
+		margin-bottom: -1px;
+		width: max(100%, 720px);
+		aspect-ratio: 1200 / 240;
+		height: auto;
+		position: relative;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+
+	.night {
+		background: linear-gradient(to bottom, #31203C, var(--color-noche));
+	}
+
+	.star {
+		animation: twinkle 3s ease-in-out infinite;
+	}
+
+	/* twinkling silhouette windows — scale from their own center, not the svg's */
+	.win {
+		animation: twinkle 4s ease-in-out infinite;
+		transform-box: fill-box;
+		transform-origin: center;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.star,
+		.win {
+			animation: none;
+		}
+	}
+
+	.foot-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--color-lila);
+		transition: color 0.2s ease, transform 0.2s ease;
+	}
+
+	.foot-link:hover {
+		color: var(--color-nube);
+		transform: translateX(3px);
+	}
+
+	.ig-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-weight: 600;
+		color: var(--color-destello);
+		transition: color 0.2s ease;
+	}
+
+	.ig-link:hover {
+		color: var(--color-nube);
+	}
+
+	.top-link {
+		font-weight: 600;
+		color: var(--color-destello);
+		transition: color 0.2s ease, transform 0.2s ease;
+	}
+
+	.top-link:hover {
+		color: var(--color-nube);
+		transform: translateY(-2px);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.foot-link:hover,
+		.top-link:hover {
+			transform: none;
+		}
+	}
+</style>

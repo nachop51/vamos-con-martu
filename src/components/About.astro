@@ -1,0 +1,195 @@
+---
+import { Image } from 'astro:assets';
+import Reveal from './Reveal.astro';
+import Icon from './Icon.astro';
+import NightSparkles from './NightSparkles.astro';
+import { SITE } from '../config';
+
+// Drop Martu's photo at src/assets/martu/portrait.jpg (or .png/.webp)
+// and it appears automatically; until then a placeholder shows.
+const portraits = import.meta.glob<ImageMetadata>('../assets/martu/portrait.{jpg,jpeg,png,webp}', {
+	eager: true,
+	import: 'default',
+});
+const portrait = Object.values(portraits)[0];
+
+const chips = ['🇺🇾 Uruguaya', '🎓 Lic. en Comunicación', '🏰 Fan de Disney de toda la vida'];
+
+// Swap these placeholders for real photos the same way: src/assets/martu/
+const polaroids = [
+	{ caption: 'Magic Kingdom ✨', rot: '-7deg', gradient: 'linear-gradient(160deg, #FF37A6, #FF2099)' },
+	{ caption: 'Frente al castillo 🏰', rot: '4deg', gradient: 'linear-gradient(160deg, #A9D6E5, #4E3560)' },
+	{ caption: 'Fuegos de cierre 🎆', rot: '-3deg', gradient: 'linear-gradient(160deg, #EAD94C, #FF37A6)' },
+];
+---
+
+<section id="sobre-mi" class="sky-sobre relative -mt-px scroll-mt-20 pt-24 pb-12 md:pt-32 md:pb-14">
+	<NightSparkles seed={1} />
+	<div class="relative mx-auto grid max-w-6xl items-center gap-14 px-5 md:grid-cols-2">
+		<Reveal>
+			<div class="relative mx-auto w-fit pb-16">
+				<!-- arch portrait -->
+				<div class="portrait relative w-64 overflow-hidden sm:w-72">
+					{
+						portrait ? (
+							<Image
+								src={portrait}
+								alt="Martina Paz, Martu, en Disney"
+								class="h-full w-full object-cover"
+								widths={[320, 640]}
+								sizes="(max-width: 640px) 320px, 640px"
+							/>
+						) : (
+							<div class="placeholder flex h-full w-full flex-col items-center justify-center gap-3">
+								<Icon name="crown" size={44} class="text-white/80" />
+								<span class="font-display text-5xl font-semibold text-white">M</span>
+							</div>
+						)
+					}
+				</div>
+				<!-- name plate -->
+				<div class="nameplate absolute -bottom-0 left-1/2 w-max -translate-x-1/2 rounded-2xl bg-white px-6 py-3 text-center shadow-xl">
+					<p class="font-display text-xl font-semibold text-tinta">Martina Paz</p>
+					<p class="text-sm text-tinta/60">Martu · 27 años</p>
+				</div>
+				<!-- mini polaroids peeking from behind -->
+				<div
+					class="pointer-events-none absolute -right-24 top-6 hidden h-64 w-40 lg:block"
+					data-parallax="-0.08"
+				>
+					{
+						polaroids.map((p, i) => (
+							<figure
+								class="polaroid pointer-events-auto absolute rounded-md bg-white p-2 pb-7 shadow-2xl"
+								style={`--rot:${p.rot}; z-index:${i + 1}; left:${i * 8}px; top:${i * 26}%; animation-delay:${i * 0.7}s`}
+								tabindex="0"
+								aria-label={`Foto: ${p.caption}`}
+							>
+								<div class="h-24 w-24 rounded-sm" style={`background:${p.gradient}`}>
+									<Icon name="star" size={18} class="m-2 text-white/70" />
+								</div>
+								<figcaption class="mt-1.5 text-center text-[10px] leading-tight text-neutral-600">
+									{p.caption}
+								</figcaption>
+							</figure>
+						))
+					}
+				</div>
+			</div>
+		</Reveal>
+
+		<div>
+			<Reveal>
+				<p class="font-display mb-3 text-sm tracking-[0.25em] text-destello uppercase">Sobre mí</p>
+				<h2 class="font-display text-balance text-4xl font-semibold text-nube md:text-5xl">
+					Hola, soy <span class="text-rosa">Martu</span>
+				</h2>
+				<ul class="mt-5 flex flex-wrap gap-2">
+					{chips.map((c) => <li class="chip">{c}</li>)}
+				</ul>
+			</Reveal>
+			<Reveal delay={120}>
+				<p class="mt-6 text-lg leading-relaxed text-lila">
+					Fui a Disney varias veces y cada viaje me confirmó lo mismo: la magia es real, pero
+					se disfruta más cuando alguien te acompaña a vivirla.
+				</p>
+			</Reveal>
+			<Reveal delay={190}>
+				<p class="mt-4 text-lg leading-relaxed text-lila">
+					Me enamoran los castillos, las princesas, los fuegos artificiales y todo lo que
+					brille (si es rosa, mejor). En mi Instagram comparto rankings, recorridos y todo lo
+					que aprendí en los parques.
+				</p>
+			</Reveal>
+			<Reveal delay={260}>
+				<p class="mt-4 text-lg leading-relaxed text-lila">
+					Ahora quiero ir un paso más allá: viajar con vos y acompañarte para que vivas
+					Disney con tranquilidad, organización y cercanía.{' '}
+					<strong class="text-nube">Como viajar con un hada madrina, pero real.</strong>
+				</p>
+			</Reveal>
+			<Reveal delay={330}>
+				<a
+					href={SITE.instagram}
+					target="_blank"
+					rel="noopener"
+					class="mt-7 inline-flex items-center gap-2 font-semibold text-destello transition-colors hover:text-nube"
+				>
+					<Icon name="instagram" size={18} />
+					Seguí mis viajes en {SITE.instagramHandle}
+					<Icon name="arrow" size={16} />
+				</a>
+			</Reveal>
+		</div>
+	</div>
+</section>
+
+<script>
+	// Hovering (or focusing, or tapping on touch) brings a polaroid to the top.
+	let zTop = 10;
+	const bringToFront = (el: HTMLElement) => {
+		zTop++;
+		el.style.zIndex = String(zTop);
+		document.querySelectorAll<HTMLElement>('.polaroid').forEach((p) => p.classList.toggle('is-front', p === el));
+	};
+	document.querySelectorAll<HTMLElement>('.polaroid').forEach((p) => {
+		p.addEventListener('mouseenter', () => bringToFront(p));
+		p.addEventListener('focus', () => bringToFront(p));
+		p.addEventListener('click', () => bringToFront(p));
+	});
+</script>
+
+<style>
+	.portrait {
+		aspect-ratio: 3 / 4;
+		border-radius: 999px 999px 28px 28px;
+		border: 4px solid rgb(255 255 255 / 0.18);
+		box-shadow:
+			0 0 0 1px rgb(234 217 76 / 0.25),
+			0 24px 70px rgb(0 0 0 / 0.45),
+			0 0 60px rgb(255 55 166 / 0.18);
+	}
+
+	.placeholder {
+		background:
+			radial-gradient(circle at 30% 20%, rgb(255 255 255 / 0.2), transparent 45%),
+			linear-gradient(160deg, #FF37A6, #8f4e93 70%, #4E3560);
+	}
+
+	.nameplate {
+		border: 1px solid rgb(255 32 153 / 0.15);
+	}
+
+	.chip {
+		border-radius: 999px;
+		border: 1px solid rgb(169 214 229 / 0.35);
+		background: rgb(255 255 255 / 0.06);
+		padding: 0.3rem 0.8rem;
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: var(--color-lila);
+	}
+
+	.polaroid {
+		transform: rotate(var(--rot));
+		animation: float-slow 7s ease-in-out infinite;
+		transition:
+			transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+			box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+			z-index 0s linear 0.15s;
+		will-change: transform;
+	}
+
+	.polaroid.is-front {
+		animation: none;
+		transform: rotate(calc(var(--rot) * 0.35)) translateY(-6px) scale(1.05);
+		box-shadow: 0 20px 45px rgb(0 0 0 / 0.45);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.polaroid {
+			animation: none;
+			transition: none;
+		}
+	}
+</style>

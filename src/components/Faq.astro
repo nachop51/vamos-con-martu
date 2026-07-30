@@ -1,0 +1,143 @@
+---
+import Reveal from './Reveal.astro';
+import Icon from './Icon.astro';
+import { faq } from '../data/faq';
+
+// speed = parallax depth; alternating so neighbors drift apart on scroll.
+// Kept small: the section clips, and big offsets cut icons at its edges.
+const deco = [
+	{ icon: 'star' as const, size: 26, left: '8%', top: '14%', rot: '-12deg', op: 0.2, speed: 0.14 },
+	{ icon: 'wand' as const, size: 40, left: '13%', top: '58%', rot: '8deg', op: 0.22, speed: 0.06 },
+	{ icon: 'crown' as const, size: 34, left: '6%', top: '84%', rot: '-6deg', op: 0.18, speed: 0.12 },
+	{ icon: 'castle' as const, size: 52, left: '88%', top: '20%', rot: '5deg', op: 0.2, speed: 0.08 },
+	{ icon: 'star' as const, size: 18, left: '92%', top: '52%', rot: '20deg', op: 0.25, speed: 0.15 },
+	{ icon: 'suitcase' as const, size: 36, left: '87%', top: '78%', rot: '-8deg', op: 0.2, speed: 0.1 },
+];
+---
+
+<section id="preguntas" class="sky-dia relative -mt-px scroll-mt-20 overflow-hidden pt-16 pb-12 md:pt-20 md:pb-14">
+	<!-- faint day-magic doodles in the margins -->
+	<div class="pointer-events-none absolute inset-0 hidden md:block" aria-hidden="true">
+		{
+			deco.map((d, i) => (
+				<span
+					class="doodle absolute text-magenta"
+					data-parallax={d.speed}
+					style={`left:${d.left};top:${d.top};opacity:${d.op};--rot:${d.rot};transform:rotate(${d.rot});animation-delay:${i * 0.9}s`}
+				>
+					<Icon name={d.icon} size={d.size} />
+				</span>
+			))
+		}
+	</div>
+
+	<div class="relative mx-auto max-w-3xl px-5">
+		<Reveal>
+			<p class="font-display mb-3 text-sm tracking-[0.25em] text-magenta uppercase">Preguntas frecuentes</p>
+			<h2 class="font-display text-balance text-4xl font-semibold text-tinta md:text-5xl">
+				Lo que todos me preguntan
+			</h2>
+		</Reveal>
+
+		<div class="mt-10 space-y-3">
+			{
+				faq.map((item, i) => (
+					<Reveal delay={Math.min(i * 80, 320)}>
+						<details class="faq-item group rounded-2xl bg-white px-6 py-1">
+							<summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-semibold text-tinta [&::-webkit-details-marker]:hidden">
+								{item.question}
+								<Icon
+									name="star"
+									size={16}
+									class="star-marker shrink-0 text-magenta transition-transform duration-300 group-open:rotate-[135deg] group-open:text-destello"
+								/>
+							</summary>
+							<p class="pb-5 leading-relaxed text-tinta/75">{item.answer}</p>
+						</details>
+					</Reveal>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	// Animate <details> open/close: measure the natural start/end heights and
+	// tween between them, since height:auto can't be transitioned natively.
+	const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	document.querySelectorAll<HTMLDetailsElement>('details.faq-item').forEach((det) => {
+		const summary = det.querySelector('summary');
+		const content = summary?.nextElementSibling as HTMLElement | null;
+		if (!summary || !content || !det.animate) return;
+
+		let anim: Animation | null = null;
+		let closing = false;
+
+		const tween = (from: number, to: number, onDone?: () => void) => {
+			det.style.height = `${from}px`;
+			det.style.overflow = 'hidden';
+			anim = det.animate(
+				{ height: [`${from}px`, `${to}px`] },
+				{ duration: 280, easing: 'cubic-bezier(0.4, 0, 0.2, 1)' }
+			);
+			anim.onfinish = () => {
+				det.style.height = '';
+				det.style.overflow = '';
+				anim = null;
+				onDone?.();
+			};
+		};
+
+		summary.addEventListener('click', (e) => {
+			if (reduced) return; // native instant toggle
+			e.preventDefault();
+			const start = det.offsetHeight; // current visual height, even mid-animation
+			anim?.cancel();
+			anim = null;
+			det.style.height = ''; // let it lay out naturally so targets can be measured
+
+			if (!det.open || closing) {
+				// open, or reverse a close in progress
+				closing = false;
+				det.open = true;
+				tween(start, det.offsetHeight);
+			} else {
+				// close: natural open height minus the answer block
+				closing = true;
+				tween(start, det.offsetHeight - content.offsetHeight, () => {
+					det.open = false;
+					closing = false;
+				});
+			}
+		});
+	});
+</script>
+
+<style>
+	.faq-item {
+		border: 1px solid rgb(255 32 153 / 0.15);
+		box-shadow: 0 4px 18px rgb(43 45 66 / 0.06);
+		transition: border-color 0.2s ease;
+	}
+
+	.faq-item[open] {
+		border-color: rgb(255 55 166 / 0.4);
+	}
+
+	.doodle {
+		animation: float-slow 9s ease-in-out infinite;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.doodle {
+			animation: none;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.star-marker {
+			transition: none;
+		}
+	}
+</style>

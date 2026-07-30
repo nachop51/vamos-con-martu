@@ -1,0 +1,59 @@
+---
+import Icon from './Icon.astro';
+import { SITE, WA_MESSAGES, waLink } from '../config';
+
+const links = [
+	{ href: '#sobre-mi', label: 'Sobre mí' },
+	{ href: '#servicios', label: 'Servicios' },
+	{ href: '#como-funciona', label: 'Cómo funciona' },
+	{ href: '#preguntas', label: 'Preguntas' },
+	{ href: '#contacto', label: 'Contacto' },
+];
+---
+
+<header class="absolute top-0 left-0 right-0 z-20">
+	<div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-5">
+		<a href="#" class="brand font-display flex items-center gap-2 text-lg text-nube">
+			<Icon name="castle" size={22} class="text-destello" />
+			<span>{SITE.brand}</span>
+		</a>
+
+		<nav class="hidden items-center gap-7 md:flex" aria-label="Secciones">
+			{
+				links.map((l) => (
+					<a href={l.href} class="nav-link text-sm font-medium text-lila">
+						{l.label}
+					</a>
+				))
+			}
+		</nav>
+
+		<a
+			href={waLink(WA_MESSAGES.general)}
+			target="_blank"
+			rel="noopener"
+			class="btn-magic !px-4 !py-2 text-sm"
+		>
+			<Icon name="whatsapp" size={17} />
+			<span class="hidden sm:inline">Escribime</span>
+		</a>
+	</div>
+</header>
+
+<style>
+	.brand {
+		font-variation-settings:
+			'SOFT' 100,
+			'WONK' 1;
+		font-weight: 600;
+		letter-spacing: 0.01em;
+	}
+
+	.nav-link {
+		transition: color 0.2s ease;
+	}
+
+	.nav-link:hover {
+		color: var(--color-nube);
+	}
+</style>

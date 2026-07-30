@@ -1,0 +1,83 @@
+---
+// Pixie dust: tiny stars trail the cursor. Fine pointers only,
+// disabled under prefers-reduced-motion.
+---
+
+<script>
+	const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+	if (!reduced && finePointer) {
+		const COLORS = ['#EAD94C', '#FF37A6', '#A9D6E5', '#FFFFFF'];
+		const MIN_DIST = 16; // px of travel between spawns
+		const MAX_LIVE = 56; // hard cap on simultaneous particles
+		let lastX = -100;
+		let lastY = -100;
+		let live = 0;
+
+		const spawn = (x: number, y: number) => {
+			if (live >= MAX_LIVE) return;
+			live++;
+			const star = document.createElement('span');
+			star.className = 'pixie';
+			star.textContent = '✦';
+			const size = 7 + Math.random() * 8;
+			star.style.cssText = [
+				`left:${x + (Math.random() * 14 - 7)}px`,
+				`top:${y + (Math.random() * 14 - 7)}px`,
+				`font-size:${size}px`,
+				`color:${COLORS[(Math.random() * COLORS.length) | 0]}`,
+				`--drift-x:${Math.random() * 24 - 12}px`,
+				`--drift-y:${14 + Math.random() * 18}px`,
+				`--spin:${Math.random() * 240 - 120}deg`,
+			].join(';');
+			star.addEventListener('animationend', () => {
+				star.remove();
+				live--;
+			});
+			document.body.appendChild(star);
+		};
+
+		window.addEventListener(
+			'pointermove',
+			(e) => {
+				const dx = e.clientX - lastX;
+				const dy = e.clientY - lastY;
+				if (dx * dx + dy * dy < MIN_DIST * MIN_DIST) return;
+				lastX = e.clientX;
+				lastY = e.clientY;
+				spawn(e.clientX, e.clientY);
+			},
+			{ passive: true }
+		);
+	}
+</script>
+
+<style is:global>
+	.pixie {
+		position: fixed;
+		z-index: 60;
+		pointer-events: none;
+		user-select: none;
+		line-height: 1;
+		text-shadow: 0 0 6px currentColor;
+		animation: pixie-fade 0.9s ease-out forwards;
+	}
+
+	@keyframes pixie-fade {
+		0% {
+			opacity: 0.95;
+			transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+		}
+		25% {
+			opacity: 1;
+			transform: translate(-50%, -50%) scale(1) rotate(calc(var(--spin, 60deg) / 3));
+		}
+		100% {
+			opacity: 0;
+			transform:
+				translate(calc(-50% + var(--drift-x, 0px)), calc(-50% + var(--drift-y, 16px)))
+				scale(0.2) rotate(var(--spin, 60deg));
+		}
+	}
+</style>

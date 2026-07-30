@@ -1,0 +1,230 @@
+- generic [active] [ref=f66e1]:
+  - banner [ref=f66e2]:
+    - generic [ref=f66e3]:
+      - link "Martu en Disney" [ref=f66e4] [cursor=pointer]:
+        - /url: "#"
+      - navigation "Secciones" [ref=f66e10]:
+        - link "Sobre mí" [ref=f66e11] [cursor=pointer]:
+          - /url: "#sobre-mi"
+        - link "Servicios" [ref=f66e12] [cursor=pointer]:
+          - /url: "#servicios"
+        - link "Cómo funciona" [ref=f66e13] [cursor=pointer]:
+          - /url: "#como-funciona"
+        - link "Preguntas" [ref=f66e14] [cursor=pointer]:
+          - /url: "#preguntas"
+        - link "Contacto" [ref=f66e15] [cursor=pointer]:
+          - /url: "#contacto"
+      - link "Escribime" [ref=f66e16] [cursor=pointer]:
+        - /url: https://wa.me/59899000000?text=Hola%20Martu!%20Quiero%20empezar%20a%20planear%20mi%20viaje%20a%20Disney%20%E2%9C%A8
+  - main [ref=f66e21]:
+    - generic [ref=f66e22]:
+      - button [ref=f66e23] [cursor=pointer]
+      - generic [ref=f66e48]:
+        - paragraph [ref=f66e49]: ✦ Viajes a Disney Orlando ✦
+        - heading [level=1] [ref=f66e50]:
+          - text: La magia se planifica,
+          - emphasis [ref=f66e51]: y yo te llevo de la mano
+        - paragraph [ref=f66e52]: Soy Martu y Disney es mi lugar en el mundo. Te ayudo a armar tu viaje a Orlando para que llegues con todo resuelto y lo vivas como lo soñaste.
+        - generic [ref=f66e53]:
+          - link "Quiero mi viaje" [ref=f66e54] [cursor=pointer]:
+            - /url: https://wa.me/59899000000?text=Hola%20Martu!%20Quiero%20empezar%20a%20planear%20mi%20viaje%20a%20Disney%20%E2%9C%A8
+          - link "@pazmartu.m" [ref=f66e58] [cursor=pointer]:
+            - /url: https://www.instagram.com/pazmartu.m
+    - generic [ref=f66e63]:
+      - generic:
+        - generic: ✦
+        - generic: ✦
+        - generic: ✦
+        - generic: ✦
+        - generic: ✦
+        - generic: ✦
+        - generic: ✦
+        - generic: ✦
+      - generic [ref=f66e64]:
+        - generic [ref=f66e66]:
+          - generic [ref=f66e67]: M
+          - generic [ref=f66e73]:
+            - paragraph [ref=f66e74]: Martina Paz
+            - paragraph [ref=f66e75]: Martu · 25 años
+          - generic:
+            - 'figure "Foto: Magic Kingdom ✨" [ref=f66e76]':
+              - generic [ref=f66e80]: Magic Kingdom ✨
+            - 'figure "Foto: Frente al castillo 🏰" [ref=f66e81]':
+              - generic [ref=f66e85]: Frente al castillo 🏰
+            - 'figure "Foto: Fuegos de cierre 🎆" [ref=f66e86]':
+              - generic [ref=f66e90]: Fuegos de cierre 🎆
+        - generic [ref=f66e91]:
+          - generic [ref=f66e92]:
+            - paragraph [ref=f66e93]: Sobre mí
+            - heading "Hola, soy Martu" [level=2] [ref=f66e94]
+            - list [ref=f66e95]:
+              - listitem [ref=f66e96]: 🇺🇾 Uruguaya
+              - listitem [ref=f66e97]: 🎓 Lic. en Marketing
+              - listitem [ref=f66e98]: 🏰 Fan de Disney de toda la vida
+          - paragraph [ref=f66e100]: "Fui a Disney varias veces y cada viaje me confirmó lo mismo: la magia es real, pero sale mejor cuando alguien te cuenta los secretos antes de llegar."
+          - paragraph [ref=f66e102]: Me enamoran los castillos, las princesas, los fuegos artificiales y todo lo que brille (si es rosa, mejor). En mi Instagram comparto rankings, recorridos y todo lo que aprendí en los parques.
+          - paragraph [ref=f66e104]:
+            - text: "Ahora quiero ir un paso más allá: ayudarte a planificar"
+            - strong [ref=f66e105]: tu
+            - text: viaje, para que no pierdas tiempo ni magia.
+          - link "Seguí mis viajes en @pazmartu.m" [ref=f66e107] [cursor=pointer]:
+            - /url: https://www.instagram.com/pazmartu.m
+    - generic [ref=f66e114]:
+      - generic:
+        - generic: ✦
+        - generic: ✦
+        - generic: ✦
+        - generic: ✦
+        - generic: ✦
+        - generic: ✦
+        - generic: ✦
+        - generic: ✦
+      - generic [ref=f66e115]:
+        - generic [ref=f66e116]:
+          - paragraph [ref=f66e117]: Servicios
+          - heading "Dos maneras de llegar a la magia" [level=2] [ref=f66e118]
+        - generic [ref=f66e119]:
+          - article [ref=f66e121]:
+            - heading "Viaje personalizado" [level=3] [ref=f66e125]
+            - paragraph [ref=f66e126]: "Me contás cómo es tu grupo, cuánto tiempo tenés y qué soñás hacer. Yo diseño el viaje: qué parques, en qué orden, dónde comer y qué no te podés perder — y te armo la cotización completa con vuelos, hotel y entradas. Vos solo te ocupás de disfrutar."
+            - list [ref=f66e127]:
+              - listitem [ref=f66e128]: Itinerario armado a tu medida
+              - listitem [ref=f66e131]: Cotización completa de tu viaje
+              - listitem [ref=f66e134]: Tips y secretos de cada parque
+            - link "Pedí tu cotización" [ref=f66e137] [cursor=pointer]:
+              - /url: https://wa.me/59899000000?text=Hola%20Martu!%20Me%20interesa%20el%20viaje%20personalizado%20a%20Disney.%20%C2%BFMe%20cont%C3%A1s%20c%C3%B3mo%20funciona%3F
+          - article [ref=f66e142]:
+            - heading "Salida grupal" [level=3] [ref=f66e146]
+            - paragraph [ref=f66e147]: "¿Preferís viajar acompañado? De a poco estoy armando salidas grupales a Orlando: un grupo, fechas compartidas y yo con vos en los parques."
+            - link "Contame de la próxima" [ref=f66e148] [cursor=pointer]:
+              - /url: https://wa.me/59899000000?text=Hola%20Martu!%20Quiero%20saber%20m%C3%A1s%20sobre%20las%20salidas%20grupales%20a%20Disney.
+    - generic [ref=f66e151]:
+      - generic:
+        - generic: ✦
+        - generic: ✦
+        - generic: ✦
+        - generic: ✦
+        - generic: ✦
+        - generic: ✦
+      - generic [ref=f66e152]:
+        - generic [ref=f66e153]:
+          - paragraph [ref=f66e154]: Cómo funciona
+          - heading "De la idea al “no puedo creer que estoy acá”" [level=2] [ref=f66e155]
+        - list [ref=f66e156]:
+          - listitem [ref=f66e157]:
+            - generic [ref=f66e158]:
+              - generic [ref=f66e159]: "1"
+              - heading "Me contás tu idea" [level=3] [ref=f66e160]
+              - paragraph [ref=f66e161]: "Por WhatsApp o el formulario: quiénes viajan, cuándo te gustaría ir y qué soñás hacer. Sin compromiso."
+          - listitem [ref=f66e162]:
+            - generic [ref=f66e163]:
+              - generic [ref=f66e164]: "2"
+              - heading "Diseñamos tu viaje" [level=3] [ref=f66e165]
+              - paragraph [ref=f66e166]: "Armo tu itinerario a medida y te paso la cotización completa: vuelos, hotel, entradas y todos los detalles."
+          - listitem [ref=f66e167]:
+            - generic [ref=f66e168]:
+              - generic [ref=f66e169]: "3"
+              - heading "Viajás con todo resuelto" [level=3] [ref=f66e170]
+              - paragraph [ref=f66e171]: Llegás a Orlando sabiendo exactamente qué hacer cada día — y con mis tips para exprimir la magia.
+    - generic [ref=f66e173]:
+      - generic [ref=f66e174]:
+        - paragraph [ref=f66e175]: Preguntas frecuentes
+        - heading "Lo que todos me preguntan" [level=2] [ref=f66e176]
+      - generic [ref=f66e177]:
+        - group [ref=f66e179]:
+          - generic "¿Necesito visa para viajar a Estados Unidos?" [ref=f66e180] [cursor=pointer]
+        - group [ref=f66e184]:
+          - generic "¿Con cuánta anticipación tengo que planear el viaje?" [ref=f66e185] [cursor=pointer]
+        - group [ref=f66e189]:
+          - generic "¿Cuál es la mejor época para ir a Disney?" [ref=f66e190] [cursor=pointer]
+        - group [ref=f66e194]:
+          - generic "¿Sirve para viajar con niños chicos?" [ref=f66e195] [cursor=pointer]
+        - group [ref=f66e199]:
+          - generic "¿Necesito saber inglés?" [ref=f66e200] [cursor=pointer]
+        - group [ref=f66e204]:
+          - generic "¿Qué incluye la cotización?" [ref=f66e205] [cursor=pointer]
+    - generic [ref=f66e209]:
+      - generic [ref=f66e210]:
+        - generic [ref=f66e211]:
+          - paragraph [ref=f66e212]: Contacto
+          - heading [level=2] [ref=f66e213]:
+            - text: Contame tu idea y empecemos a
+            - emphasis [ref=f66e214]: soñar en grande
+        - paragraph [ref=f66e216]: "Completá el formulario y se abre WhatsApp con tu mensaje pronto para enviar. O escribime directo por donde prefieras:"
+        - list [ref=f66e218]:
+          - listitem [ref=f66e219]:
+            - link "WhatsApp" [ref=f66e220] [cursor=pointer]:
+              - /url: https://wa.me/59899000000?text=Hola%20Martu!%20Quiero%20empezar%20a%20planear%20mi%20viaje%20a%20Disney%20%E2%9C%A8
+          - listitem [ref=f66e224]:
+            - link "hola@martuendisney.com" [ref=f66e225] [cursor=pointer]:
+              - /url: mailto:hola@martuendisney.com
+          - listitem [ref=f66e229]:
+            - link "@pazmartu.m" [ref=f66e230] [cursor=pointer]:
+              - /url: https://www.instagram.com/pazmartu.m
+      - generic [ref=f66e237]:
+        - generic [ref=f66e238]:
+          - generic [ref=f66e239]: Tu nombre
+          - textbox "Tu nombre" [ref=f66e240]:
+            - /placeholder: ¿Cómo te llamás?
+        - generic [ref=f66e241]:
+          - generic [ref=f66e242]:
+            - generic [ref=f66e243]: ¿Cuándo te gustaría viajar?
+            - textbox "¿Cuándo te gustaría viajar?" [ref=f66e244]:
+              - /placeholder: "Ej: julio 2027, aún no sé…"
+          - generic [ref=f66e245]:
+            - generic [ref=f66e246]: ¿Cuántos viajan?
+            - textbox "¿Cuántos viajan?" [ref=f66e247]:
+              - /placeholder: "Ej: 2 adultos y 2 niños"
+        - generic [ref=f66e248]:
+          - generic [ref=f66e249]: Contame tu idea
+          - textbox "Contame tu idea" [ref=f66e250]:
+            - /placeholder: Qué soñás hacer, si es tu primera vez, dudas…
+        - button "Enviar por WhatsApp" [ref=f66e251]
+        - paragraph [ref=f66e255]: Se abre WhatsApp con el mensaje armado — lo revisás y lo mandás vos.
+  - contentinfo [ref=f66e256]:
+    - generic [ref=f66e271]:
+      - generic [ref=f66e272]:
+        - generic [ref=f66e273]:
+          - paragraph [ref=f66e274]: Martu en Disney
+          - paragraph [ref=f66e279]: Viajes a Disney Orlando planificados con magia, para que solo te ocupes de disfrutarlos.
+          - link "@pazmartu.m" [ref=f66e280] [cursor=pointer]:
+            - /url: https://www.instagram.com/pazmartu.m
+        - navigation "Secciones del sitio" [ref=f66e285]:
+          - paragraph [ref=f66e286]: Secciones
+          - list [ref=f66e287]:
+            - listitem [ref=f66e288]:
+              - link "Sobre mí" [ref=f66e289] [cursor=pointer]:
+                - /url: "#sobre-mi"
+            - listitem [ref=f66e290]:
+              - link "Servicios" [ref=f66e291] [cursor=pointer]:
+                - /url: "#servicios"
+            - listitem [ref=f66e292]:
+              - link "Cómo funciona" [ref=f66e293] [cursor=pointer]:
+                - /url: "#como-funciona"
+            - listitem [ref=f66e294]:
+              - link "Preguntas frecuentes" [ref=f66e295] [cursor=pointer]:
+                - /url: "#preguntas"
+            - listitem [ref=f66e296]:
+              - link "Contacto" [ref=f66e297] [cursor=pointer]:
+                - /url: "#contacto"
+        - generic [ref=f66e298]:
+          - paragraph [ref=f66e299]: Escribime
+          - list [ref=f66e300]:
+            - listitem [ref=f66e301]:
+              - link "WhatsApp" [ref=f66e302] [cursor=pointer]:
+                - /url: https://wa.me/59899000000?text=Hola%20Martu!%20Quiero%20empezar%20a%20planear%20mi%20viaje%20a%20Disney%20%E2%9C%A8
+            - listitem [ref=f66e306]:
+              - link "hola@martuendisney.com" [ref=f66e307] [cursor=pointer]:
+                - /url: mailto:hola@martuendisney.com
+            - listitem [ref=f66e311]:
+              - link "Instagram" [ref=f66e312] [cursor=pointer]:
+                - /url: https://www.instagram.com/pazmartu.m
+      - generic [ref=f66e318]:
+        - paragraph [ref=f66e319]: © 2026 Martu en Disney · Hecho con magia desde Uruguay ✨
+        - link "✦ Volver arriba" [ref=f66e320] [cursor=pointer]:
+          - /url: "#"
+  - generic [ref=f66e323]:
+    - button [ref=f66e324]
+    - button [ref=f66e330]
+    - button [ref=f66e334]
+    - button [ref=f66e342]

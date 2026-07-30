@@ -1,0 +1,10 @@
+[   49162ms] [ERROR] [vite] JSHandle@object @ http://localhost:4321/@vite/client:1662
+[   49163ms] [ERROR] [vite] Failed to reload /src/styles/global.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:4321/@vite/client:1662
+[   49163ms] [WARNING] [JavaScript Warning: "Loading failed for the module with source “http://localhost:4321/src/styles/global.css?t=1784115208759”." {file: "http://localhost:4321/@vite/client" line: 0}] @ http://localhost:4321/@vite/client:0
+[   97777ms] [ERROR] [vite] JSHandle@object @ http://localhost:4321/@vite/client:1662
+[   97777ms] [ERROR] [vite] Failed to reload /src/styles/global.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:4321/@vite/client:1662
+[   97777ms] [WARNING] [JavaScript Warning: "Loading failed for the module with source “http://localhost:4321/src/styles/global.css?t=1784115257384”." {file: "http://localhost:4321/@vite/client" line: 0}] @ http://localhost:4321/@vite/client:0
+[   97952ms] [WARNING] [JavaScript Warning: "This page is in Quirks Mode. Page layout may be impacted. For Standards Mode use “<!DOCTYPE html>”." {file: "http://localhost:4321/" line: 0}] @ http://localhost:4321/:0
+[  163013ms] [ERROR] [vite] JSHandle@object @ http://localhost:4321/@vite/client:1662
+[  163014ms] [ERROR] [vite] Failed to reload /src/styles/global.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:4321/@vite/client:1662
+[  163014ms] [WARNING] [JavaScript Warning: "Loading failed for the module with source “http://localhost:4321/src/styles/global.css?t=1784115322624”." {file: "http://localhost:4321/@vite/client" line: 0}] @ http://localhost:4321/@vite/client:0

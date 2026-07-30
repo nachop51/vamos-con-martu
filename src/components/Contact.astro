@@ -1,0 +1,237 @@
+---
+import Reveal from './Reveal.astro';
+import Icon from './Icon.astro';
+import { SITE, WA_MESSAGES, waLink } from '../config';
+
+// paper planes gliding through the section — they carry your message,
+// which is exactly what this form does
+// speed = parallax depth: small far planes lag, big near ones race ahead.
+// Kept small so the section's clipping never cuts a plane at its edges.
+const planes = [
+	{ left: '4%', top: '14%', size: 34, color: '#FF37A6', tilt: -14, delay: 0, dur: 7, speed: -0.05 },
+	{ left: '8%', top: '66%', size: 26, color: '#A9D6E5', tilt: 8, delay: 1.6, dur: 8.5, speed: 0.12 },
+	{ left: '28%', top: '82%', size: 30, color: '#EAD94C', tilt: -6, delay: 3, dur: 7.5, speed: 0.08 },
+	{ left: '88%', top: '10%', size: 28, color: '#FF2099', tilt: 12, delay: 0.9, dur: 8, speed: 0.1 },
+	{ left: '92%', top: '52%', size: 36, color: '#FF7FC5', tilt: -10, delay: 2.2, dur: 9, speed: -0.06 },
+];
+---
+
+<section id="contacto" class="sky-cierre relative -mt-px scroll-mt-20 overflow-hidden pt-14 pb-20 md:pt-16 md:pb-24">
+	<div class="pointer-events-none absolute inset-0 hidden md:block" aria-hidden="true">
+		{
+			planes.map((p) => (
+				<span
+					class="plane"
+					data-parallax={p.speed}
+					style={`left:${p.left};top:${p.top};--tilt:${p.tilt}deg;color:${p.color};animation-delay:${p.delay}s;animation-duration:${p.dur}s`}
+				>
+					<svg width={p.size} height={p.size} viewBox="0 0 24 24" fill="none">
+						<path
+							d="M2.5 11.5 21.5 3l-7 18-3.2-7.3L2.5 11.5Z"
+							fill="currentColor"
+							fill-opacity="0.25"
+							stroke="currentColor"
+							stroke-width="1.5"
+							stroke-linejoin="round"
+						/>
+						<path d="m11.3 13.7 10.2-10.7" stroke="currentColor" stroke-width="1.5" />
+					</svg>
+				</span>
+			))
+		}
+	</div>
+
+	<div class="relative mx-auto grid max-w-6xl gap-14 px-5 md:grid-cols-2">
+		<div>
+			<Reveal>
+				<p class="font-display mb-3 text-sm tracking-[0.25em] text-magenta uppercase">Contacto</p>
+				<h2 class="font-display text-balance text-4xl font-semibold text-tinta md:text-5xl">
+					Contame tu idea y empecemos a <em class="text-rosa">soñar en grande</em>
+				</h2>
+			</Reveal>
+			<Reveal delay={120}>
+				<p class="mt-6 text-lg leading-relaxed text-tinta/75">
+					Completá el formulario y se abre WhatsApp con tu mensaje pronto para enviar.
+					O escribime directo por donde prefieras:
+				</p>
+			</Reveal>
+			<Reveal delay={200}>
+				<ul class="mt-7 space-y-4">
+					<li>
+						<a
+							href={waLink(WA_MESSAGES.general)}
+							target="_blank"
+							rel="noopener"
+							class="contact-link"
+						>
+							<Icon name="whatsapp" size={20} class="text-magenta" /> WhatsApp
+						</a>
+					</li>
+					<li>
+						<a href={`mailto:${SITE.email}`} class="contact-link">
+							<Icon name="mail" size={20} class="text-magenta" />
+							{SITE.email}
+						</a>
+					</li>
+					<li>
+						<a href={SITE.instagram} target="_blank" rel="noopener" class="contact-link">
+							<Icon name="instagram" size={20} class="text-magenta" />
+							{SITE.instagramHandle}
+						</a>
+					</li>
+				</ul>
+			</Reveal>
+		</div>
+
+		<Reveal delay={150}>
+			<form id="wa-form" class="form rounded-3xl bg-white p-7 md:p-9">
+				<div class="grid gap-5">
+					<label class="field">
+						<span>Tu nombre</span>
+						<input type="text" name="nombre" required placeholder="¿Cómo te llamás?" />
+					</label>
+					<div class="grid gap-5 sm:grid-cols-2">
+						<label class="field">
+							<span>¿Cuándo te gustaría viajar?</span>
+							<input type="text" name="fecha" placeholder="Ej: julio 2027, aún no sé…" />
+						</label>
+						<label class="field">
+							<span>¿Cuántos viajan?</span>
+							<input type="text" name="personas" placeholder="Ej: 2 adultos y 2 niños" />
+						</label>
+					</div>
+					<label class="field">
+						<span>Contame tu idea</span>
+						<textarea
+							name="mensaje"
+							rows="4"
+							placeholder="Qué soñás hacer, si es tu primera vez, dudas…"></textarea>
+					</label>
+					<button type="submit" class="btn-magic justify-center">
+						<Icon name="whatsapp" size={19} />
+						Enviar por WhatsApp
+					</button>
+					<p class="text-center text-sm text-tinta/70">
+						Se abre WhatsApp con el mensaje armado: lo revisás y lo mandás vos.
+					</p>
+				</div>
+			</form>
+		</Reveal>
+	</div>
+</section>
+
+<script define:vars={{ whatsapp: SITE.whatsapp }}>
+	const form = document.getElementById('wa-form');
+	form?.addEventListener('submit', (e) => {
+		e.preventDefault();
+		const data = new FormData(form);
+		const nombre = String(data.get('nombre') || '').trim();
+		const fecha = String(data.get('fecha') || '').trim();
+		const personas = String(data.get('personas') || '').trim();
+		const mensaje = String(data.get('mensaje') || '').trim();
+
+		const lines = [
+			`Hola Martu! Soy ${nombre} ✨`,
+			fecha && `Me gustaría viajar: ${fecha}`,
+			personas && `Somos: ${personas}`,
+			mensaje && `Mi idea: ${mensaje}`,
+		].filter(Boolean);
+
+		const url = `https://wa.me/${whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`;
+		window.open(url, '_blank', 'noopener');
+	});
+</script>
+
+<style>
+	/* paper plane gliding with a dotted flight trail */
+	.plane {
+		position: absolute;
+		opacity: 0.55;
+		transform: rotate(var(--tilt, 0deg));
+		animation: plane-glide 8s ease-in-out infinite;
+	}
+
+	.plane::before {
+		content: '';
+		position: absolute;
+		right: 90%;
+		top: 78%;
+		width: 74px;
+		height: 40px;
+		border: 0;
+		border-bottom: 2px dotted currentColor;
+		border-radius: 50%;
+		opacity: 0.5;
+	}
+
+	@keyframes plane-glide {
+		0%,
+		100% {
+			transform: rotate(var(--tilt, 0deg)) translate(0, 0);
+		}
+		50% {
+			transform: rotate(calc(var(--tilt, 0deg) + 5deg)) translate(14px, -12px);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.plane {
+			animation: none;
+		}
+	}
+
+	.contact-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65rem;
+		font-weight: 600;
+		color: var(--color-tinta);
+		transition: color 0.2s ease;
+	}
+
+	.contact-link:hover {
+		color: var(--color-magenta);
+	}
+
+	.form {
+		border: 1px solid rgb(255 32 153 / 0.15);
+		box-shadow: 0 12px 44px rgb(43 45 66 / 0.12);
+	}
+
+	.field {
+		display: grid;
+		gap: 0.4rem;
+	}
+
+	.field span {
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--color-tinta);
+	}
+
+	.field input,
+	.field textarea {
+		width: 100%;
+		min-width: 0;
+		border: 1.5px solid rgb(43 45 66 / 0.15);
+		border-radius: 0.75rem;
+		padding: 0.65rem 0.9rem;
+		color: var(--color-tinta);
+		background: var(--color-nube);
+		transition:
+			border-color 0.2s ease,
+			box-shadow 0.2s ease;
+	}
+
+	.field input::placeholder,
+	.field textarea::placeholder {
+		color: rgb(43 45 66 / 0.48);
+	}
+
+	.field input:focus,
+	.field textarea:focus {
+		outline: none;
+		border-color: var(--color-rosa);
+		box-shadow: 0 0 0 3px rgb(255 55 166 / 0.15);
+	}
+</style>

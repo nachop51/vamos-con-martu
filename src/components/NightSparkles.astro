@@ -1,0 +1,89 @@
+---
+import Icon from './Icon.astro';
+
+// Faint magic doodles + twinkling sparkles for the night sections' margins.
+// Positions are randomized at build time — scattered, never grid-like.
+interface Props {
+	seed?: number;
+}
+
+const { seed = 0 } = Astro.props;
+
+const icons = ['star', 'wand', 'crown', 'carriage'] as const;
+const rnd = (min: number, max: number) => min + Math.random() * (max - min);
+// keep decorations in the side margins, out of the content column
+const marginLeft = (side: number) => (side === 0 ? rnd(2, 14) : rnd(84, 96));
+
+// Stratified placement: the vertical space is split into equal bands and
+// each element gets one band (with jitter), alternating sides — scattered
+// but never clumped and never grid-like.
+const SPARKS = 8;
+const sparks = Array.from({ length: SPARKS }, (_, i) => {
+	const band = 90 / SPARKS;
+	return {
+		left: `${marginLeft(i % 2).toFixed(1)}%`,
+		top: `${(4 + i * band + rnd(0, band * 0.7)).toFixed(1)}%`,
+		size: Math.round(rnd(7, 14)),
+		delay: rnd(0, 4).toFixed(1),
+		opacity: rnd(0.5, 0.95).toFixed(2),
+	};
+});
+
+const DOODLES = 3;
+const doodles = Array.from({ length: DOODLES }, (_, i) => {
+	const band = 84 / DOODLES;
+	return {
+		icon: icons[(i + seed) % icons.length],
+		size: Math.round(rnd(26, 46)),
+		// opposite side from the spark in the same region
+		left: `${marginLeft((i + 1) % 2).toFixed(1)}%`,
+		top: `${(10 + i * band + rnd(0, band * 0.6)).toFixed(1)}%`,
+		rot: `${Math.round(rnd(-14, 14))}deg`,
+	};
+});
+---
+
+<div
+	class="pointer-events-none absolute inset-0 hidden overflow-hidden md:block"
+	aria-hidden="true"
+	data-parallax="0.15"
+>
+	{
+		doodles.map((d, i) => (
+			<span
+				class="night-doodle absolute text-lila"
+				style={`left:${d.left};top:${d.top};--rot:${d.rot};transform:rotate(${d.rot});opacity:0.16;animation-delay:${i * 1.1}s`}
+			>
+				<Icon name={d.icon} size={d.size} />
+			</span>
+		))
+	}
+	{
+		sparks.map((s) => (
+			<span
+				class="night-spark twinkle absolute text-destello"
+				style={`left:${s.left};top:${s.top};font-size:${s.size}px;--tw-min:0.1;--tw-max:${s.opacity};animation-delay:${s.delay}s`}
+			>
+				✦
+			</span>
+		))
+	}
+</div>
+
+<style>
+	.night-doodle {
+		animation: float-slow 10s ease-in-out infinite;
+	}
+
+	.night-spark {
+		animation: twinkle 3.6s ease-in-out infinite;
+		text-shadow: 0 0 8px currentColor;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.night-doodle,
+		.night-spark {
+			animation: none;
+		}
+	}
+</style>

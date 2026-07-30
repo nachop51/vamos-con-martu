@@ -1,0 +1,39 @@
+---
+interface Props {
+	name: keyof typeof icons;
+	size?: number;
+	class?: string;
+}
+
+const { name, size = 24, class: className } = Astro.props;
+
+// Hand-drawn-style line icon set: 1.5px stroke, rounded caps, no fills.
+const icons = {
+	castle: `<path d="M4 21v-9l1.5-4L7 12v2h3V7l2-3 2 3v7h3v-2l1.5-4L20 12v9H4Z"/><path d="M12 21v-4"/><path d="M12 4V2.5M5.5 8V6M18.5 8V6"/>`,
+	crown: `<path d="M4.5 17.5 4 9.5l4.5 3L12 6l3.5 6.5 4.5-3-.5 8H4.5Z"/><path d="M5 20.5h14"/>`,
+	wand: `<path d="M4.5 19.5 14 10"/><path d="m17.5 3.5.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9.9-2.6Z"/><path d="M8 5.5v.01M20.5 12.5v.01"/>`,
+	star: `<path d="m12 3 1.7 6.8L20.5 12l-6.8 2.2L12 21l-1.7-6.8L3.5 12l6.8-2.2L12 3Z"/>`,
+	carriage: `<circle cx="12" cy="10.5" r="5.5"/><path d="M12 5v11M7.5 8h9M7.5 13h9"/><circle cx="8" cy="19" r="1.8"/><circle cx="16" cy="19" r="1.8"/>`,
+	suitcase: `<rect x="4" y="8" width="16" height="12" rx="2.5"/><path d="M9 8V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V8M9 12v4M15 12v4"/>`,
+	map: `<path d="M3.5 6.5 9 4.5l6 2 5.5-2v13l-5.5 2-6-2-5.5 2v-13Z"/><path d="M9 4.5v13M15 6.5v13"/>`,
+	calendar: `<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><path d="m10.5 14.5 1.5 1.5 3-3.5"/>`,
+	whatsapp: `<path d="M12 3.5a8.5 8.5 0 0 1 0 17c-1.5 0-2.9-.4-4.1-1.1L3.5 20.5l1.1-4.4A8.5 8.5 0 0 1 12 3.5Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1.2-1 .7a4.2 4.2 0 0 1-1.5-1.5l.7-1-1.2-2L9 9.5Z"/>`,
+	instagram: `<rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.8"/><path d="M16.8 7.2v.01"/>`,
+	mail: `<rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="m4.5 7.5 7.5 6 7.5-6"/>`,
+	arrow: `<path d="M4 12h15M13.5 6.5 19.5 12l-6 5.5"/>`,
+} as const;
+---
+
+<svg
+	width={size}
+	height={size}
+	viewBox="0 0 24 24"
+	fill="none"
+	stroke="currentColor"
+	stroke-width="1.5"
+	stroke-linecap="round"
+	stroke-linejoin="round"
+	aria-hidden="true"
+	class={className}
+	set:html={icons[name]}
+/>

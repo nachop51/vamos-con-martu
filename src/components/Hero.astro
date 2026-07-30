@@ -1,0 +1,51 @@
+---
+import CastleScene from './CastleScene.astro';
+import Icon from './Icon.astro';
+import { SITE, WA_MESSAGES, waLink } from '../config';
+---
+
+<section class="sky-hero relative flex min-h-svh flex-col justify-center overflow-hidden">
+	<CastleScene />
+
+	<div
+		class="relative z-10 mx-auto w-full max-w-6xl px-5 pt-28 pb-[clamp(180px,30vh,340px)] text-center"
+		data-parallax="0.22"
+		data-parallax-fade
+	>
+		<p
+			class="hero-enter font-display mb-5 text-sm tracking-[0.25em] text-destello uppercase"
+			style="--enter-delay: 100ms"
+		>
+			✦ Viajes grupales a Disney Orlando ✦
+		</p>
+
+		<h1
+			class="hero-enter font-display mx-auto max-w-3xl text-balance text-[clamp(2.6rem,7vw,4.8rem)] leading-[1.05] font-semibold text-nube"
+			style="--enter-delay: 300ms"
+		>
+			Disney acompañado, <em class="text-rosa">real y sin perder la magia</em>
+		</h1>
+
+		<p
+			class="hero-enter mx-auto mt-6 max-w-xl text-lg text-lila"
+			style="--enter-delay: 550ms"
+		>
+			Soy Martu y Disney es mi lugar en el mundo. Viajo con vos a Orlando en grupos
+			reducidos, porque el lugar más feliz del mundo se disfruta mejor acompañado.
+		</p>
+
+		<div
+			class="hero-enter mt-9 flex flex-wrap items-center justify-center gap-4"
+			style="--enter-delay: 800ms"
+		>
+			<a href={waLink(WA_MESSAGES.general)} target="_blank" rel="noopener" class="btn-magic">
+				<Icon name="whatsapp" size={19} />
+				Quiero mi viaje
+			</a>
+			<a href={SITE.instagram} target="_blank" rel="noopener" class="btn-ghost">
+				<Icon name="instagram" size={19} />
+				{SITE.instagramHandle}
+			</a>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,6 @@
+[   82708ms] [ERROR] [vite] JSHandle@object @ http://localhost:4321/@vite/client:1662
+[   82712ms] [ERROR] [vite] Failed to reload /src/styles/global.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:4321/@vite/client:1662
+[   82714ms] [WARNING] [JavaScript Warning: "Loading failed for the module with source “http://localhost:4321/src/styles/global.css?t=1784200553587”." {file: "http://localhost:4321/@vite/client" line: 0}] @ http://localhost:4321/@vite/client:0
+[   99549ms] [ERROR] [vite] JSHandle@object @ http://localhost:4321/@vite/client:1662
+[   99550ms] [ERROR] [vite] Failed to reload /src/styles/global.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:4321/@vite/client:1662
+[   99550ms] [WARNING] [JavaScript Warning: "Loading failed for the module with source “http://localhost:4321/src/styles/global.css?t=1784200570423”." {file: "http://localhost:4321/@vite/client" line: 0}] @ http://localhost:4321/@vite/client:0

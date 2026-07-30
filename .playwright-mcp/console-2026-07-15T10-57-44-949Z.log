@@ -1,0 +1,3 @@
+[      67ms] [WARNING] [JavaScript Warning: "Loading failed for the module with source “http://localhost:4321/Users/nacho/dev/vamos-marti/src/components/CastleScene.astro?astro&type=script&index=0&lang.ts”." {file: "http://localhost:4321/" line: 1820}] @ http://localhost:4321/:1820
+[      67ms] [ERROR] [JavaScript Error: "Loading module from “http://localhost:4321/Users/nacho/dev/vamos-marti/src/components/CastleScene.astro?astro&type=script&index=0&lang.ts” was blocked because of a disallowed MIME type (“”)." {file: "http://localhost:4321/" line: 0}] @ http://localhost:4321/:0
+[   22000ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4321/@vite/client:1726

@@ -1,0 +1,383 @@
+---
+// The signature night scene: star field, blooming fireworks and a
+// generic fairy-tale castle silhouette on the horizon. Pure CSS/SVG.
+
+interface Star {
+	x: number;
+	y: number;
+	size: number;
+	delay: number;
+	duration: number;
+	min: number;
+}
+
+const stars: Star[] = Array.from({ length: 130 }, () => {
+	const r = Math.random();
+	return {
+		x: Math.round(Math.random() * 1000) / 10,
+		y: Math.round(Math.random() * 780) / 10,
+		size: r < 0.5 ? 1.5 : r < 0.85 ? 2 : r < 0.97 ? 3 : 4,
+		delay: Math.round(Math.random() * 40) / 10,
+		duration: 2.4 + Math.round(Math.random() * 28) / 10,
+		min: 0.15 + Math.round(Math.random() * 25) / 100,
+	};
+});
+
+// bigger four-point sparks scattered between the dot stars
+const glyphs = Array.from({ length: 9 }, (_, i) => ({
+	x: (i * 11 + Math.random() * 8).toFixed(1),
+	y: (4 + Math.random() * 62).toFixed(1),
+	size: Math.round(9 + Math.random() * 8),
+	color: ['#EAD94C', '#A9D6E5', '#FF7FC5'][i % 3],
+	delay: (Math.random() * 4).toFixed(1),
+}));
+
+interface Firework {
+	x: number;
+	y: number;
+	color: string;
+	delay: number;
+	scale: number;
+}
+
+const fireworks: Firework[] = [
+	{ x: 16, y: 30, color: 'var(--color-rosa)', delay: 0.6, scale: 1 },
+	{ x: 88, y: 16, color: 'var(--color-destello)', delay: 2.1, scale: 1.25 },
+	{ x: 38, y: 9, color: 'var(--color-lila)', delay: 3.8, scale: 0.85 },
+	{ x: 94, y: 44, color: 'var(--color-rosa)', delay: 5.2, scale: 0.7 },
+	{ x: 6, y: 12, color: 'var(--color-destello)', delay: 6.7, scale: 0.9 },
+	{ x: 63, y: 26, color: 'var(--color-lila)', delay: 8.3, scale: 1.1 },
+];
+
+const PARTICLES = 12;
+---
+
+<div class="scene" aria-hidden="true">
+	<!-- stars: deepest layer, lags the most -->
+	<div class="layer" data-parallax="0.5">
+		{
+			stars.map((s) => (
+				<span
+					class="star twinkle"
+					style={`left:${s.x}%;top:${s.y}%;width:${s.size}px;height:${s.size}px;--tw-min:${s.min};animation-delay:${s.delay}s;animation-duration:${s.duration}s;`}
+				/>
+			))
+		}
+	</div>
+
+	<!-- accent sparks -->
+	<div class="layer" data-parallax="0.35">
+		{
+			glyphs.map((g) => (
+				<span
+					class="glyph twinkle"
+					style={`left:${g.x}%;top:${g.y}%;font-size:${g.size}px;color:${g.color};--tw-min:0.15;--tw-max:0.8;animation-delay:${g.delay}s;`}
+				>
+					✦
+				</span>
+			))
+		}
+	</div>
+
+	<!-- crescent moon -->
+	<div class="moon" data-parallax="0.55"></div>
+
+	<!-- fireworks -->
+	<div class="layer" data-parallax="0.3">
+		{
+			fireworks.map((f) => (
+				<span
+					class="firework"
+					style={`left:${f.x}%;top:${f.y}%;--fw-color:${f.color};--fw-scale:${f.scale};animation-delay:${f.delay}s;`}
+				>
+					{Array.from({ length: PARTICLES }, (_, i) => (
+						<i style={`transform:rotate(${(360 / PARTICLES) * i}deg)`} />
+					))}
+				</span>
+			))
+		}
+	</div>
+
+	<!-- horizon glow behind the castle -->
+	<div class="glow" data-parallax="0.15"></div>
+
+	<!-- rockets + interactive bursts land in this layer -->
+	<div class="rocket-layer absolute inset-0"></div>
+
+	<!-- castle silhouette -->
+	<svg class="castle" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax meet" fill="none">
+		<g fill="#1A1020">
+			<!-- ground / treeline -->
+			<path
+				d="M0 300v-40c60-8 140-14 220-16 60-2 120-10 190-12h380c70 2 130 10 190 12 80 2 160 8 220 16v40H0Z"
+			/>
+			<!-- outer walls -->
+			<path d="M430 300h340v-60H430Z" />
+			<!-- left: cone peak + pines -->
+			<path d="M298 264 344 148l46 116Z" />
+			<path d="M196 266l20-42 20 42Zm52 2 16-34 16 34Z" />
+			<!-- right: domed pavilion + small turret + pines -->
+			<path d="M818 266a46 46 0 0 1 92 0Z" />
+			<path d="M862 222v-16" stroke="#1A1020" stroke-width="3" />
+			<path d="M946 268v-46h26v46Zm-4-46 17-26 17 26Z" />
+			<path d="M1006 268l17-36 17 36Z" />
+			<!-- left tower -->
+			<path d="M472 232v-64h44v64Zm-6-64 28-38 28 38Z" />
+			<!-- right tower -->
+			<path d="M684 232v-64h44v64Zm-6-64 28-38 28 38Z" />
+			<!-- mid towers -->
+			<path d="M528 244v-92h36v92Zm-5-92 23-32 23 32Z" />
+			<path d="M636 244v-92h36v92Zm-5-92 23-32 23 32Z" />
+			<!-- central keep -->
+			<path d="M566 300V128h68v172Zm-4-172 38-52 38 52Z" />
+			<!-- central spire -->
+			<path d="M588 84h24v44h-24Zm-3 0 15-46 15 46Z" />
+			<!-- flags -->
+			<path d="M600 38V18l14 5-14 5" stroke="#1A1020" stroke-width="3" />
+			<path d="M500 130v-16l11 4-11 4M728 130v-16l11 4-11 4" stroke="#1A1020" stroke-width="2.5" />
+		</g>
+		<!-- lit windows -->
+		<g fill="var(--color-destello)">
+			<circle class="window" cx="600" cy="180" r="3.2" style="animation-delay:.4s" />
+			<circle class="window" cx="600" cy="220" r="3.2" style="animation-delay:1.8s" />
+			<circle class="window" cx="546" cy="190" r="2.6" style="animation-delay:1.1s" />
+			<circle class="window" cx="654" cy="190" r="2.6" style="animation-delay:2.6s" />
+			<circle class="window" cx="494" cy="200" r="2.6" style="animation-delay:.9s" />
+			<circle class="window" cx="706" cy="200" r="2.6" style="animation-delay:2.1s" />
+		</g>
+	</svg>
+</div>
+
+<!-- real, focusable button covering the whole castle strip -->
+<button
+	type="button"
+	class="castle-trigger"
+	aria-label="Lanzar fuegos artificiales desde el castillo"></button>
+
+<script>
+	// Rockets launch from the castle and burst into fireworks — a volley on
+	// page load, and more every time the castle is clicked.
+	const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const layer = document.querySelector<HTMLElement>('.rocket-layer');
+	const trigger = document.querySelector<HTMLButtonElement>('.castle-trigger');
+	const COLORS = ['#EAD94C', '#FF37A6', '#A9D6E5', '#FF7FC5'];
+	const ARMS = 12;
+
+	const burst = (x: number, y: number, color: string) => {
+		if (!layer) return;
+		const b = document.createElement('span');
+		b.className = 'burst';
+		b.style.cssText = `left:${x}px;top:${y}px;--fw-color:${color};--fw-scale:${0.7 + Math.random() * 0.6}`;
+		for (let i = 0; i < ARMS; i++) {
+			const arm = document.createElement('i');
+			arm.style.transform = `rotate(${(360 / ARMS) * i}deg)`;
+			b.appendChild(arm);
+		}
+		b.addEventListener('animationend', () => b.remove());
+		layer.appendChild(b);
+	};
+
+	const rocket = () => {
+		if (!layer || reduced) return;
+		const w = layer.clientWidth;
+		const h = layer.clientHeight;
+		// launch from the castle and drift wide so bursts spread across the sky
+		const startX = w * (0.4 + Math.random() * 0.2);
+		const startY = h - h * (0.16 + Math.random() * 0.06);
+		const rise = h * (0.3 + Math.random() * 0.38);
+		const driftX = (Math.random() - 0.5) * w * 0.55;
+		const color = COLORS[(Math.random() * COLORS.length) | 0];
+
+		// curved flight: the rocket follows this path and the trail redraws it
+		const bow = (Math.random() - 0.5) * 140;
+		const pathD = `M0 0 Q ${driftX * 0.5 + bow} ${-rise * 0.55} ${driftX} ${-rise}`;
+
+		const r = document.createElement('span');
+		r.className = 'rocket';
+		r.style.cssText = `left:${startX}px;top:${startY}px;--fw-color:${color};offset-path:path("${pathD}");offset-rotate:auto 90deg`;
+
+		// breadcrumb dust: dots dropped at the rocket's live position, so the
+		// trail draws itself along the curve and each dot fades on its own
+		const layerBox = layer.getBoundingClientRect();
+		const dust = setInterval(() => {
+			const box = r.getBoundingClientRect();
+			if (!box.width && !box.height) return;
+			const d = document.createElement('span');
+			d.className = 'trail-dot';
+			d.style.cssText = `left:${box.x + box.width / 2 - layerBox.x}px;top:${box.y + box.height / 2 - layerBox.y}px;--fw-color:${color}`;
+			d.addEventListener('animationend', () => d.remove());
+			layer.appendChild(d);
+		}, 40);
+
+		r.addEventListener('animationend', () => {
+			clearInterval(dust);
+			r.remove();
+			burst(startX + driftX, startY - rise, color);
+		});
+		layer.appendChild(r);
+	};
+
+	// 6-10 rockets: some pop almost together, others follow after a beat
+	const volley = () => {
+		const n = 6 + ((Math.random() * 5) | 0);
+		let t = 0;
+		for (let i = 0; i < n; i++) {
+			setTimeout(rocket, t);
+			t += Math.random() < 0.45 ? Math.random() * 120 : 220 + Math.random() * 340;
+		}
+	};
+
+	if (!reduced) {
+		setTimeout(volley, 900);
+		// the button covers the whole castle strip; native keyboard support
+		trigger?.addEventListener('click', volley);
+	} else {
+		trigger?.setAttribute('hidden', '');
+	}
+</script>
+
+<style>
+	.scene {
+		position: absolute;
+		inset: 0;
+		overflow: hidden;
+		pointer-events: none;
+	}
+
+	/* parallax depth layer: same coordinate space as .scene */
+	.layer {
+		position: absolute;
+		inset: 0;
+	}
+
+	.star {
+		position: absolute;
+		border-radius: 999px;
+		background: white;
+		opacity: 0.4;
+		animation: twinkle 3s ease-in-out infinite;
+	}
+
+	.glyph {
+		position: absolute;
+		line-height: 1;
+		text-shadow: 0 0 8px currentColor;
+		animation: twinkle 4s ease-in-out infinite;
+	}
+
+	/* crescent moon: circle with an offset shadow-circle carving it.
+	   Hidden on small screens where it collides with the hero copy. */
+	.moon {
+		display: none;
+		position: absolute;
+		top: 9%;
+		right: 7%;
+		width: 64px;
+		height: 64px;
+		border-radius: 999px;
+		background: radial-gradient(circle at 38% 40%, #F6EFA6, #EAD94C 70%);
+		box-shadow: 0 0 40px rgb(234 217 76 / 0.35);
+		-webkit-mask: radial-gradient(circle at 68% 32%, transparent 44%, black 46%);
+		mask: radial-gradient(circle at 68% 32%, transparent 44%, black 46%);
+		opacity: 0.9;
+	}
+
+	@media (min-width: 768px) {
+		.moon {
+			display: block;
+		}
+	}
+
+	.glow {
+		position: absolute;
+		bottom: -12%;
+		left: 50%;
+		transform: translateX(-50%);
+		width: min(900px, 110vw);
+		height: 340px;
+		background: radial-gradient(
+			ellipse at center bottom,
+			rgb(255 32 153 / 0.35),
+			rgb(169 214 229 / 0.12) 45%,
+			transparent 70%
+		);
+	}
+
+	/* full viewBox always visible (height follows width) so spires and
+	   flags are never cropped; on narrow screens keep a minimum size and
+	   let the sides bleed instead */
+	.castle {
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: max(100%, 720px);
+		aspect-ratio: 4 / 1;
+		height: auto;
+	}
+
+	/* invisible hit area over the castle strip */
+	.castle-trigger {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: clamp(180px, 30vh, 380px);
+		background: transparent;
+		border: 0;
+		cursor: pointer;
+		/* above the hero copy block (z-10), below the header (z-20) */
+		z-index: 15;
+	}
+
+	.castle-trigger:focus-visible {
+		outline: 2px solid var(--color-destello);
+		outline-offset: -6px;
+		border-radius: 12px;
+	}
+
+	.window {
+		animation: twinkle 4s ease-in-out infinite;
+		--tw-min: 0.5;
+	}
+
+	/* firework: 12 rotated arms, each with a particle dot at the tip */
+	.firework {
+		position: absolute;
+		width: 4px;
+		height: 4px;
+		opacity: 0;
+		animation: bloom 7.5s ease-out infinite;
+	}
+
+	.firework i {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: 2px;
+		height: 58px;
+		transform-origin: top center;
+	}
+
+	.firework i::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: -1.5px;
+		width: 5px;
+		height: 5px;
+		border-radius: 999px;
+		background: var(--fw-color);
+		box-shadow: 0 0 8px var(--fw-color);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.firework {
+			display: none;
+		}
+		.star,
+		.window {
+			animation: none;
+		}
+	}
+</style>

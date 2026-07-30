@@ -1,0 +1,4 @@
+[  125733ms] [ERROR] [vite] JSHandle@object @ http://localhost:4321/@vite/client:1662
+[  125735ms] [ERROR] [vite] Failed to reload /src/styles/global.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:4321/@vite/client:1662
+[  125735ms] [WARNING] [JavaScript Warning: "Loading failed for the module with source “http://localhost:4321/src/styles/global.css?t=1784111321345”." {file: "http://localhost:4321/@vite/client" line: 0}] @ http://localhost:4321/@vite/client:0
+[  148805ms] [WARNING] [JavaScript Warning: "This page is in Quirks Mode. Page layout may be impacted. For Standards Mode use “<!DOCTYPE html>”." {file: "http://localhost:4321/" line: 0}] @ http://localhost:4321/:0
