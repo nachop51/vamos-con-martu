@@ -1,17 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="7" fill="#251831"/>
-  <!-- castle: pink towers, soft-pink cone roofs, gold window -->
-  <g fill="#FF37A6">
-    <rect x="6" y="14.5" width="5" height="11.5"/>
-    <rect x="13.5" y="10.5" width="5" height="15.5"/>
-    <rect x="21" y="14.5" width="5" height="11.5"/>
-    <rect x="5.5" y="21" width="21" height="5.5"/>
-  </g>
-  <g fill="#FF7FC5">
-    <path d="M5 14.5 8.5 10l3.5 4.5Z"/>
-    <path d="M12.5 10.5 16 5.5l3.5 5Z"/>
-    <path d="M20 14.5 23.5 10l3.5 4.5Z"/>
-  </g>
-  <circle cx="16" cy="21.5" r="1.5" fill="#EAD94C"/>
-  <path d="m26.5 3.5.55 1.6 1.6.55-1.6.55-.55 1.6-.55-1.6-1.6-.55 1.6-.55.55-1.6Z" fill="#EAD94C"/>
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_2244_529)">
+<g clip-path="url(#clip0_2244_529)">
+<path d="M8 14C8 9.58172 11.5817 6 16 6H34C38.4183 6 42 9.58172 42 14V32C42 36.4183 38.4183 40 34 40H16C11.5817 40 8 36.4183 8 32V14Z" fill="white" fill-opacity="0.01" shape-rendering="crispEdges"/>
+<path d="M34.5625 6H15.4375C11.3299 6 8 9.32988 8 13.4375V32.5625C8 36.6701 11.3299 40 15.4375 40H34.5625C38.6701 40 42 36.6701 42 32.5625V13.4375C42 9.32988 38.6701 6 34.5625 6Z" fill="white" stroke="#FFD6EC" stroke-width="1.59375"/>
+<path d="M19.6875 21.4062H14.375V33.625H19.6875V21.4062Z" fill="#FF37A6"/>
+<path d="M27.6562 17.1562H22.3438V33.625H27.6562V17.1562Z" fill="#FF37A6"/>
+<path d="M35.625 21.4062H30.3125V33.625H35.625V21.4062Z" fill="#FF37A6"/>
+<path d="M36.1562 28.3125H13.8438V34.1562H36.1562V28.3125Z" fill="#FF37A6"/>
+<path d="M13.3125 21.4062L17.0312 16.625L20.75 21.4062H13.3125Z" fill="#FF7FC5"/>
+<path d="M21.2812 17.1562L25 11.8438L28.7188 17.1562H21.2812Z" fill="#FF7FC5"/>
+<path d="M29.25 21.4062L32.9688 16.625L36.6875 21.4062H29.25Z" fill="#FF7FC5"/>
+<path d="M25 30.4375C25.8802 30.4375 26.5938 29.724 26.5938 28.8438C26.5938 27.9635 25.8802 27.25 25 27.25C24.1198 27.25 23.4062 27.9635 23.4062 28.8438C23.4062 29.724 24.1198 30.4375 25 30.4375Z" fill="#EAD94C"/>
+<path d="M36.1564 9.71875L36.7408 11.4187L38.4408 12.0031L36.7408 12.5875L36.1564 14.2875L35.5721 12.5875L33.8721 12.0031L35.5721 11.4187L36.1564 9.71875Z" fill="#EAD94C"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_2244_529" x="0" y="0" width="50" height="50" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="2"/>
+<feGaussianBlur stdDeviation="4"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 0.215686 0 0 0 0 0.65098 0 0 0 0.2 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2244_529"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2244_529" result="shape"/>
+</filter>
+<clipPath id="clip0_2244_529">
+<path d="M8 14C8 9.58172 11.5817 6 16 6H34C38.4183 6 42 9.58172 42 14V32C42 36.4183 38.4183 40 34 40H16C11.5817 40 8 36.4183 8 32V14Z" fill="white"/>
+</clipPath>
+</defs>
 </svg>
