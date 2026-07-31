@@ -25,15 +25,17 @@ import { instagramPosts } from '../data/instagram';
 							<Reveal delay={Math.min(i * 100, 300)} class="w-full max-w-[348px]">
 								<div class="ig-frame">
 									<Icon name="star" size={20} class="ig-star" />
-									<blockquote
-										class="instagram-media"
-										data-instgrm-permalink={url}
-										data-instgrm-version="14"
-									>
-										<a href={url} target="_blank" rel="noopener">
-											Ver este post en Instagram
-										</a>
-									</blockquote>
+									<div class="ig-clip">
+										<blockquote
+											class="instagram-media"
+											data-instgrm-permalink={url}
+											data-instgrm-version="14"
+										>
+											<a href={url} target="_blank" rel="noopener">
+												Ver este post en Instagram
+											</a>
+										</blockquote>
+									</div>
 								</div>
 							</Reveal>
 						))}
@@ -83,6 +85,22 @@ import { instagramPosts } from '../data/instagram';
 		z-index: 1;
 		color: var(--color-destello);
 		filter: drop-shadow(0 1px 2px rgb(37 24 49 / 0.3));
+	}
+
+	/* Clips the fixed-height bottom strip of the embed (like count +
+	   "Add a comment") — the iframe is cross-origin, so cropping is the
+	   only way to hide it. Separate from .ig-frame so the corner star
+	   isn't clipped too. */
+	.ig-clip {
+		height: 100%;
+		overflow: hidden;
+		border-radius: 1.5rem;
+		background: white;
+		padding-bottom: 1rem;
+	}
+
+	.ig-clip :global(iframe.instagram-media) {
+		margin-bottom: -88px !important;
 	}
 
 	/* the blockquote pre-hydration and the iframe embed.js swaps in;

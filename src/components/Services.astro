@@ -48,6 +48,15 @@ import { SITE, WA_MESSAGES, waLink } from '../config';
 							<Icon name="star" size={15} class="shrink-0 text-rosa" /> Viaje apoyado por Jetmar
 						</li>
 					</ul>
+					<a
+						href={waLink(WA_MESSAGES.grupal)}
+						target="_blank"
+						rel="noopener"
+						class="btn-ghost mt-8 justify-center self-stretch text-center text-sm sm:self-start"
+					>
+						Quiero sumarme
+						<Icon name="arrow" size={15} class="shrink-0" />
+					</a>
 				</article>
 			</Reveal>
 
@@ -67,10 +76,10 @@ import { SITE, WA_MESSAGES, waLink } from '../config';
 						href={waLink(WA_MESSAGES.personalizado)}
 						target="_blank"
 						rel="noopener"
-						class="btn-ghost mt-8 self-start text-sm"
+						class="btn-ghost mt-8 justify-center self-stretch text-center text-sm sm:self-start"
 					>
 						Quiero mi itinerario
-						<Icon name="arrow" size={15} />
+						<Icon name="arrow" size={15} class="shrink-0" />
 					</a>
 				</article>
 			</Reveal>
@@ -91,24 +100,24 @@ import { SITE, WA_MESSAGES, waLink } from '../config';
 						{SITE.nextDeparture}
 					</p>
 				</div>
-				<div class="flex flex-wrap items-center gap-x-5 gap-y-3">
+				<div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5">
 					<a
 						href={waLink(WA_MESSAGES.grupal)}
 						target="_blank"
 						rel="noopener"
-						class="btn-magic"
+						class="btn-magic justify-center"
 					>
-						<Icon name="whatsapp" size={18} />
+						<Icon name="whatsapp" size={18} class="shrink-0" />
 						Quiero ir
 					</a>
 					<a
 						href={waLink(WA_MESSAGES.siguientes)}
 						target="_blank"
 						rel="noopener"
-						class="btn-ghost text-sm"
+						class="btn-ghost justify-center text-center text-sm"
 					>
 						Consultá por siguientes salidas
-						<Icon name="arrow" size={15} />
+						<Icon name="arrow" size={15} class="shrink-0" />
 					</a>
 				</div>
 			</div>
