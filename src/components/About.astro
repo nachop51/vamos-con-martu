@@ -38,7 +38,7 @@ const polaroids = [
 					<p class="font-display text-xl font-semibold text-tinta">Martina Paz</p>
 					<p class="text-sm text-tinta/60">Martu · 27 años</p>
 				</div>
-				<!-- mini polaroids peeking from behind -->
+				<!-- mini polaroids peeking from behind (desktop: beside the portrait) -->
 				<div
 					class="pointer-events-none absolute -right-24 top-6 hidden h-64 w-40 lg:block"
 					data-parallax="-0.08"
@@ -65,6 +65,31 @@ const polaroids = [
 						))
 					}
 				</div>
+			</div>
+
+			<!-- mobile/tablet: same polaroids as a little fan under the portrait -->
+			<div class="mt-8 flex justify-center -space-x-3 lg:hidden">
+				{
+					polaroids.map((p, i) => (
+						<figure
+							class="polaroid rounded-md bg-white p-2 pb-7 shadow-2xl"
+							style={`--rot:${p.rot}; z-index:${i + 1}; margin-top:${i % 2 ? '14px' : '0'}; animation-delay:${i * 0.7}s`}
+							tabindex="0"
+							aria-label={`Foto: ${p.caption}`}
+						>
+							<Image
+								src={p.img}
+								alt=""
+								widths={[96, 192]}
+								sizes="96px"
+								class="h-24 w-24 rounded-sm object-cover"
+							/>
+							<figcaption class="mt-1.5 text-center text-[10px] leading-tight text-neutral-600">
+								{p.caption}
+							</figcaption>
+						</figure>
+					))
+				}
 			</div>
 		</Reveal>
 
