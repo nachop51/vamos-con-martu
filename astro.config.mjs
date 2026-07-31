@@ -11,6 +11,8 @@ const isBuild = process.argv.includes('build');
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://viajaconmartu.com',
+
   vite: {
     plugins: [tailwindcss()],
     ...(isBuild && { cacheDir: 'node_modules/.vite-build' })

@@ -7,8 +7,7 @@ export const SITE = {
 	title: 'Viajá con Martu: Viajes grupales acompañados a Disney Orlando',
 	description:
 		'Viajá a Disney Orlando acompañado por Martu: salidas grupales reducidas, organización sin estrés y acompañamiento de principio a fin. Pedí tu consulta sin compromiso.',
-	/** TODO: real domain when purchased */
-	url: 'https://viaja-con-martu.nachop.workers.dev',
+	url: 'https://viajaconmartu.com',
 	instagram: 'https://www.instagram.com/pazmartu.m',
 	instagramHandle: '@pazmartu.m',
 	/** International format without "+" (+598 98 683 181) */

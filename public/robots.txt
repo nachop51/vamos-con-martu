@@ -1,5 +1,5 @@
-# TODO: update host when the real domain is purchased (see src/config.ts)
 User-agent: *
 Allow: /
 
-Sitemap: https://martu-en-disney.nachop.workers.dev/sitemap.xml
+Sitemap: https://viajaconmartu.com/sitemap.xml
+Sitemap: https://viaja-con-martu.nachop.workers.dev/sitemap.xml

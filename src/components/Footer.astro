@@ -20,12 +20,42 @@ const stars = Array.from({ length: 14 }, (_, i) => ({
 	dur: (2.5 + Math.random() * 3).toFixed(1),
 }));
 
+// same looping fireworks as the hero castle, scaled down to the short
+// sunset strip; delays staggered so they never bloom all at once
+const fireworks = [
+	{ x: 10, y: 16, color: 'var(--color-rosa)', delay: 0.6, scale: 0.7 },
+	{ x: 30, y: 6, color: 'var(--color-destello)', delay: 2.1, scale: 0.85 },
+	{ x: 56, y: 12, color: 'var(--color-lila)', delay: 3.8, scale: 0.6 },
+	{ x: 74, y: 5, color: 'var(--color-rosa)', delay: 5.2, scale: 0.8 },
+	{ x: 91, y: 15, color: 'var(--color-destello)', delay: 6.9, scale: 0.65 },
+];
+const FW_PARTICLES = 12;
+
 ---
 
 <footer class="footer relative -mt-px">
-	<!-- sunset horizon: the pink day fades behind the castle one last time -->
-	<div class="sunset relative overflow-hidden" aria-hidden="true">
-		<svg class="skyline" viewBox="0 0 1200 240" preserveAspectRatio="xMidYMax meet" fill="none">
+	<!-- sunset horizon: the pink day fades behind the castle one last time.
+	     Not aria-hidden as a whole: it also holds the (real, focusable) button
+	     that fires the rockets, so each decorative layer hides itself. -->
+	<div class="sunset relative overflow-hidden">
+		<!-- fireworks bloom in the sky, partly hidden behind the skyline -->
+		<div class="fw-layer" aria-hidden="true">
+			{
+				fireworks.map((f) => (
+					<span
+						class="firework"
+						style={`left:${f.x}%;top:${f.y}%;--fw-color:${f.color};--fw-scale:${f.scale};animation-delay:${f.delay}s;`}
+					>
+						{Array.from({ length: FW_PARTICLES }, (_, i) => (
+							<i style={`transform:rotate(${(360 / FW_PARTICLES) * i}deg)`} />
+						))}
+					</span>
+				))
+			}
+		</div>
+		<!-- rockets + click bursts land here, behind the silhouette -->
+		<div class="rocket-layer absolute inset-0" aria-hidden="true"></div>
+		<svg class="skyline" aria-hidden="true" viewBox="0 0 1200 240" preserveAspectRatio="xMidYMax meet" fill="none">
 			<defs>
 				<radialGradient id="sunset-sun" cx="50%" cy="50%" r="50%">
 					<stop offset="0%" stop-color="#F6EFA6" stop-opacity="0.95" />
@@ -143,6 +173,11 @@ const stars = Array.from({ length: 14 }, (_, i) => ({
 				<circle cx="171" cy="148" r="2.5" fill="#F6EFA6" opacity="0.9" />
 			</g>
 		</svg>
+		<!-- real, focusable button covering the whole skyline strip -->
+		<button
+			type="button"
+			class="skyline-trigger"
+			aria-label="Lanzar fuegos artificiales desde el castillo"></button>
 	</div>
 
 	<!-- night content -->
@@ -243,6 +278,64 @@ const stars = Array.from({ length: 14 }, (_, i) => ({
 
 	.night {
 		background: linear-gradient(to bottom, #31203C, var(--color-noche));
+	}
+
+	/* fireworks over the sunset — same build as the hero's: 12 rotated arms
+	   with a particle dot at the tip, blooming on the global keyframes */
+	.fw-layer {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+	}
+
+	.firework {
+		position: absolute;
+		width: 4px;
+		height: 4px;
+		opacity: 0;
+		animation: bloom 7.5s ease-out infinite;
+	}
+
+	.firework i {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: 2px;
+		height: 58px;
+		transform-origin: top center;
+	}
+
+	.firework i::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: -1.5px;
+		width: 5px;
+		height: 5px;
+		border-radius: 999px;
+		background: var(--fw-color);
+		box-shadow: 0 0 8px var(--fw-color);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.firework {
+			display: none;
+		}
+	}
+
+	/* invisible hit area over the skyline; the script hides it on reduced motion */
+	.skyline-trigger {
+		position: absolute;
+		inset: 0;
+		background: transparent;
+		border: 0;
+		cursor: pointer;
+	}
+
+	.skyline-trigger:focus-visible {
+		outline: 2px solid var(--color-destello);
+		outline-offset: -6px;
+		border-radius: 12px;
 	}
 
 	.star {
@@ -352,3 +445,15 @@ const stars = Array.from({ length: 14 }, (_, i) => ({
 		}
 	}
 </style>
+
+<script>
+	// clicking the skyline fires a rocket volley, same as the hero castle;
+	// smaller bursts because the sunset strip is much shorter than the hero
+	import { wireCastleFireworks } from '../scripts/castle-fireworks';
+
+	wireCastleFireworks(
+		document.querySelector('.footer .rocket-layer'),
+		document.querySelector('.skyline-trigger'),
+		{ scale: [0.45, 0.4] },
+	);
+</script>
