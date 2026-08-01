@@ -4,12 +4,16 @@ import Reveal from './Reveal.astro';
 import Icon from './Icon.astro';
 import castleFront from '../assets/magic-kingdom/castle-front.webp';
 import fireworks from '../assets/magic-kingdom/closing-fireworks-2.webp';
+import martuFamilyMagic from '../assets/martu/martu-and-familiy-magic.webp';
 import epcotDay from '../assets/epcot/epcot.webp';
-import epcotNight from '../assets/epcot/epcot-night.webp';
+import epcotNightFigures from '../assets/epcot/ecpot-night-figures.webp';
+import martuNeonBikes from '../assets/martu/martu-in-neon-motorcycles.webp';
 import chineseTheatre from '../assets/hollywood-studios/hollywood-studios.webp';
 import hollywoodTower from '../assets/hollywood-studios/hollywood-tower.webp';
+import martuHollywood from '../assets/martu/martu-in-hollywood-studios.webp';
 import avatarTank from '../assets/animal-kingdom/avatar.webp';
 import treeOfLife from '../assets/animal-kingdom/animal-kingdom-tree.webp';
+import martuFamilyAnimal from '../assets/martu/martu-and-family-animal.webp';
 
 const reasons = [
 	{ icon: 'people' as const, text: 'Grupos reducidos', color: 'text-magenta' },
@@ -34,21 +38,25 @@ const deco = [
 ];
 
 // One stop per park along a dotted trail that zig-zags down the section:
-// each stop is a pair of tilted snapshots with the park's name, and a
-// squiggly dashed line connects each stop to the next.
+// each stop is a trio of tilted snapshots with the park's name, and a
+// squiggly dashed line connects each stop to the next. Every trio has one
+// photo with people in it, shuffled to a different spot at each stop so
+// the trail doesn't read as a repeated pattern.
 const parks = [
 	{
 		name: 'Magic Kingdom',
 		photos: [
 			{ src: castleFront, alt: 'Castillo de Cenicienta en Magic Kingdom' },
+			{ src: martuFamilyMagic, alt: 'Martu y su familia frente al castillo de Cenicienta en Magic Kingdom' },
 			{ src: fireworks, alt: 'Fuegos artificiales de cierre sobre el castillo de Magic Kingdom' },
 		],
 	},
 	{
 		name: 'Epcot',
 		photos: [
+			{ src: martuNeonBikes, alt: 'Martu y una amiga a toda velocidad en las motos de luz de Tron' },
 			{ src: epcotDay, alt: 'La esfera Spaceship Earth en Epcot' },
-			{ src: epcotNight, alt: 'Spaceship Earth iluminada de noche en Epcot' },
+			{ src: epcotNightFigures, alt: 'Spaceship Earth iluminada de noche junto a la nave de los Guardianes de la Galaxia en Epcot' },
 		],
 	},
 	{
@@ -56,12 +64,14 @@ const parks = [
 		photos: [
 			{ src: chineseTheatre, alt: 'El Teatro Chino en Hollywood Studios' },
 			{ src: hollywoodTower, alt: 'La torre del Hollywood Tower Hotel en Hollywood Studios' },
+			{ src: martuHollywood, alt: 'Martu con orejas de Minnie frente a la Tower of Terror en Hollywood Studios' },
 		],
 	},
 	{
 		name: 'Animal Kingdom',
 		photos: [
 			{ src: treeOfLife, alt: 'El Árbol de la Vida en Animal Kingdom' },
+			{ src: martuFamilyAnimal, alt: 'Martu y su familia en Pandora de noche, en Animal Kingdom' },
 			{ src: avatarTank, alt: 'El laboratorio de Avatar en Animal Kingdom' },
 		],
 	},
@@ -135,24 +145,21 @@ const parks = [
 						<Reveal class={`flex ${i % 2 === 1 ? 'justify-end md:pr-10' : 'justify-start md:pl-10'}`}>
 							<div class={`park-stop ${i % 2 === 1 ? 'rotate-[1.5deg]' : 'rotate-[-1.5deg]'}`}>
 								<div class="flex items-end">
-									<div class="trail-photo photo-a relative rounded-2xl bg-white p-1.5 md:p-2">
-										<Image
-											src={park.photos[0].src}
-											alt={park.photos[0].alt}
-											widths={[160, 320]}
-											sizes="(min-width: 768px) 160px, 112px"
-											class="aspect-[3/4] w-28 rounded-lg object-cover sm:w-32 md:w-40 md:rounded-xl"
-										/>
-									</div>
-									<div class="trail-photo photo-b relative -ml-5 rounded-2xl bg-white p-1.5 md:-ml-7 md:p-2">
-										<Image
-											src={park.photos[1].src}
-											alt={park.photos[1].alt}
-											widths={[160, 320]}
-											sizes="(min-width: 768px) 160px, 112px"
-											class="aspect-[3/4] w-28 rounded-lg object-cover sm:w-32 md:w-40 md:rounded-xl"
-										/>
-									</div>
+									{
+										park.photos.map((photo, j) => (
+											<div
+												class={`trail-photo relative rounded-2xl bg-white p-1.5 md:p-2 ${['photo-a', 'photo-b', 'photo-c'][j]} ${j > 0 ? '-ml-5 md:-ml-7' : ''}`}
+											>
+												<Image
+													src={photo.src}
+													alt={photo.alt}
+													widths={[160, 320]}
+													sizes="(min-width: 768px) 160px, 112px"
+													class="aspect-3/4 w-28 rounded-lg object-cover sm:w-32 md:w-40 md:rounded-xl"
+												/>
+											</div>
+										))
+									}
 								</div>
 								<p class="font-display mt-3 text-center text-base font-semibold text-tinta md:text-lg">
 									{park.name}
@@ -197,7 +204,7 @@ const parks = [
 			box-shadow 0.25s ease;
 	}
 
-	/* the pair leans apart like snapshots dropped on a table */
+	/* the trio leans apart like snapshots dropped on a table */
 	.photo-a {
 		transform: rotate(-5deg);
 	}
@@ -205,6 +212,11 @@ const parks = [
 	.photo-b {
 		transform: rotate(4deg) translateY(8px);
 		z-index: 1;
+	}
+
+	.photo-c {
+		transform: rotate(-4deg) translateY(3px);
+		z-index: 2;
 	}
 
 	@media (hover: hover) {
