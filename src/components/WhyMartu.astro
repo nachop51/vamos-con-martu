@@ -3,14 +3,14 @@ import { Image } from 'astro:assets';
 import Reveal from './Reveal.astro';
 import Icon from './Icon.astro';
 import castleFront from '../assets/magic-kingdom/castle-front.webp';
-import fireworks from '../assets/magic-kingdom/closing-fireworks-2.webp';
-import martuFamilyMagic from '../assets/martu/martu-and-familiy-magic.webp';
+import martuFriendsMagic from '../assets/magic-kingdom/martu-and-friends-magic-kingdom.webp';
+import martuNeonBikes from '../assets/martu/martu-in-neon-motorcycles.webp';
+import epcotChina from '../assets/epcot/epcot-shangai-front.webp';
 import epcotDay from '../assets/epcot/epcot.webp';
 import epcotNightFigures from '../assets/epcot/ecpot-night-figures.webp';
-import martuNeonBikes from '../assets/martu/martu-in-neon-motorcycles.webp';
 import chineseTheatre from '../assets/hollywood-studios/hollywood-studios.webp';
 import hollywoodTower from '../assets/hollywood-studios/hollywood-tower.webp';
-import martuHollywood from '../assets/martu/martu-in-hollywood-studios.webp';
+import martuFriendsSullivan from '../assets/hollywood-studios/martu-and-friends-sullivan.webp';
 import avatarTank from '../assets/animal-kingdom/avatar.webp';
 import treeOfLife from '../assets/animal-kingdom/animal-kingdom-tree.webp';
 import martuFamilyAnimal from '../assets/martu/martu-and-family-animal.webp';
@@ -47,14 +47,14 @@ const parks = [
 		name: 'Magic Kingdom',
 		photos: [
 			{ src: castleFront, alt: 'Castillo de Cenicienta en Magic Kingdom' },
-			{ src: martuFamilyMagic, alt: 'Martu y su familia frente al castillo de Cenicienta en Magic Kingdom' },
-			{ src: fireworks, alt: 'Fuegos artificiales de cierre sobre el castillo de Magic Kingdom' },
+			{ src: martuFriendsMagic, alt: 'Martu y sus amigas frente al castillo de Cenicienta en Magic Kingdom' },
+			{ src: martuNeonBikes, alt: 'Martu y una amiga a toda velocidad en las motos de luz de Tron' },
 		],
 	},
 	{
 		name: 'Epcot',
 		photos: [
-			{ src: martuNeonBikes, alt: 'Martu y una amiga a toda velocidad en las motos de luz de Tron' },
+			{ src: epcotChina, alt: 'El pabellón de China en el World Showcase de Epcot' },
 			{ src: epcotDay, alt: 'La esfera Spaceship Earth en Epcot' },
 			{ src: epcotNightFigures, alt: 'Spaceship Earth iluminada de noche junto a la nave de los Guardianes de la Galaxia en Epcot' },
 		],
@@ -64,7 +64,7 @@ const parks = [
 		photos: [
 			{ src: chineseTheatre, alt: 'El Teatro Chino en Hollywood Studios' },
 			{ src: hollywoodTower, alt: 'La torre del Hollywood Tower Hotel en Hollywood Studios' },
-			{ src: martuHollywood, alt: 'Martu con orejas de Minnie frente a la Tower of Terror en Hollywood Studios' },
+			{ src: martuFriendsSullivan, alt: 'Martu, su familia y Sulley en Hollywood Studios' },
 		],
 	},
 	{

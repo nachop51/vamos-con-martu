@@ -20,7 +20,7 @@ import { instagramPosts } from '../data/instagram';
 		{
 			instagramPosts.length > 0 && (
 				<>
-					<div class="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-6">
+					<div class="mx-auto mt-10 grid max-w-[348px] gap-6 lg:max-w-none lg:grid-cols-3 lg:justify-items-center">
 						{instagramPosts.map((url, i) => (
 							<Reveal delay={Math.min(i * 100, 300)} class="w-full max-w-[348px]">
 								<div class="ig-frame">
@@ -45,7 +45,7 @@ import { instagramPosts } from '../data/instagram';
 			)
 		}
 
-		<Reveal delay={150}>
+		<Reveal delay={150} class="text-center lg:text-left">
 			<a
 				href={SITE.instagram}
 				target="_blank"
